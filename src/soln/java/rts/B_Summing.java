@@ -24,7 +24,7 @@ public class B_Summing {
         return result;
     };
 
-    //@DataPoint
+    @DataPoint
     public static IntFunction<Integer> STREAM = limit -> IntStream.rangeClosed(0, limit).sum();
 
 

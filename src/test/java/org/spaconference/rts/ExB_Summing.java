@@ -23,7 +23,7 @@ public class ExB_Summing {
         return result;
     };
 
-    //@DataPoint
+    @DataPoint
     public static IntFunction<Integer> STREAM = null;
 
 

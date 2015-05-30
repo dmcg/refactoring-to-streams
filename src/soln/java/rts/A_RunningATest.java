@@ -20,7 +20,7 @@ public class A_RunningATest {
         }
     };
 
-    // @DataPoint
+    @DataPoint
     public static Supplier<String> SUPPLIER_AS_LAMBDA = () -> "That took longer than expected";
 
 
