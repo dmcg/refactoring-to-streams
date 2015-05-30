@@ -15,3 +15,7 @@ Things to cover
 * Reducing
 
 * Collecting
+
+* Generators
+
+* Flatmap

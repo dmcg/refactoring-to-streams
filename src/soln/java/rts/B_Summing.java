@@ -25,7 +25,7 @@ public class B_Summing {
     };
 
     @DataPoint
-    public static IntFunction<Integer> STREAM = limit -> IntStream.rangeClosed(0, limit).sum();
+    public static IntFunction<Integer> STREAM = limit -> IntStream.range(0, limit).sum();
 
 
     @Theory

@@ -28,7 +28,7 @@ public class C_Mapping {
     };
 
     @DataPoint
-    public static Function<List<? extends String>, List<? extends Integer>> STREAM =
+    public static Function<List<String>, List<Integer>> STREAM =
             strings -> strings.stream().map(Integer::parseInt).collect(toList());
 
 
