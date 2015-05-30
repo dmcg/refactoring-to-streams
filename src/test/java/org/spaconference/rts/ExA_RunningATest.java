@@ -20,7 +20,7 @@ public class ExA_RunningATest {
         }
     };
 
-    @DataPoint
+    // @DataPoint
     public static Supplier<String> SUPPLIER_AS_LAMBDA = null;
 
 
