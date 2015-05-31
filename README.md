@@ -2,7 +2,7 @@
 
 Things to cover
 
-* Converting Guava iterables
+* Converting mutation-and-for-loops and Guava iterables
 
 * Performance
 
@@ -16,8 +16,12 @@ Things to cover
 
 * Collecting
 
+* Partitioning and grouping
+
 * Generators
 
 * Flatmap
 
 * Take
+
+* Null vs Optional<T>
