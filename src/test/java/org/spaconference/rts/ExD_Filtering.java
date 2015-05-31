@@ -6,6 +6,7 @@ import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 
@@ -28,7 +29,7 @@ public class ExD_Filtering {
     };
 
     @DataPoint
-    public static Function<List<Integer>, List<Integer>> STREAM = null;
+    public static Function<List<Integer>, List<Integer>> STREAM = strings -> Collections.emptyList();
 
 
     @Theory

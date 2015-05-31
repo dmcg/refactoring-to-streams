@@ -6,6 +6,7 @@ import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 
@@ -27,7 +28,7 @@ public class ExC_Mapping {
     };
 
     @DataPoint
-    public static Function<List<String>, List<Integer>> STREAM = null;
+    public static Function<List<String>, List<Integer>> STREAM = strings -> Collections.emptyList();
 
 
     @Theory
