@@ -19,3 +19,5 @@ Things to cover
 * Generators
 
 * Flatmap
+
+* Take
