@@ -1,4 +1,4 @@
-package rts;
+package org.spaconference.rts;
 
 import org.junit.experimental.theories.DataPoint;
 import org.junit.experimental.theories.Theories;
