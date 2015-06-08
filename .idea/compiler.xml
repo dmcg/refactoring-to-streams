@@ -26,5 +26,8 @@
         <module name="refactoring-to-streams" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="refactoring-to-streams" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
