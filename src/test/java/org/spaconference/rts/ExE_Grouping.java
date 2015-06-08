@@ -27,18 +27,13 @@ public class ExE_Grouping {
             this.category = category;
         }
 
-
         @Override
         public String toString() {
-            return "Product{" +
-                    "id=" + id +
-                    ", name='" + name + '\'' +
-                    ", category='" + category + '\'' +
-                    '}';
+            return "Product{id=" + id + ", name='" + name + '\'' + ", category='" + category + '\'' + '}';
         }
     }
 
-    public static Product converse = new Product(1, "converse", "shoes");
+    public static Product converse = new Product(1, "winkle pickers", "shoes");
     public static Product bovverBoots = new Product(2, "bovver boots", "shoes");
 
     public static Product dunceHat = new Product(3, "dunce hat", "hats");
@@ -46,7 +41,7 @@ public class ExE_Grouping {
     public static Product wizardsHat = new Product(5, "wizards hat", "hats");
 
     public static Product yFronts = new Product(6, "y-fronts", "pants");
-    public static Product boxers = new Product(7, "y-fronts", "dogs");
+    public static Product boxers = new Product(7, "boxers", "dogs");
 
     @DataPoint
     public static Function<List<Product>, Map<String,List<Product>>> FOR_LOOP = products -> {
@@ -84,6 +79,4 @@ public class ExE_Grouping {
 
         assertThat(f.apply(products), equalTo(categorised));
     }
-
-
 }
