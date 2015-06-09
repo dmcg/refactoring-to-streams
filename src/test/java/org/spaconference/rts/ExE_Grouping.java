@@ -3,7 +3,6 @@ package org.spaconference.rts;
 import com.google.common.collect.ImmutableMap;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 
 import java.util.*;
 import java.util.function.Function;
@@ -11,10 +10,9 @@ import java.util.function.Function;
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.spaconference.rts.Ways.waysFrom;
 
 
-@RunWith(Parameterized.class)
+@RunWith(Thingy.class)
 public class ExE_Grouping {
     static class Product {
         public final int id;
@@ -73,7 +71,7 @@ public class ExE_Grouping {
 
 
     @Test
-    public void test() {
+    public void test(Function<List<Product>, Map<String,List<Product>>> f) {
         List<Product> products = asList(
             converse, bovverBoots, dunceHat, deerstalker, wizardsHat, yFronts, boxers);
 
@@ -85,11 +83,4 @@ public class ExE_Grouping {
 
         assertThat(f.apply(products), equalTo(categorised));
     }
-
-    @Parameterized.Parameters public static Collection<?> tests() {
-        return waysFrom(ExE_Grouping.class, Function.class);
-    }
-
-    @Parameterized.Parameter public Function<List<Product>, Map<String,List<Product>>> f;
-
 }

@@ -2,10 +2,8 @@ package org.spaconference.rts;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
@@ -13,10 +11,9 @@ import java.util.function.Function;
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.spaconference.rts.Ways.waysFrom;
 
 
-@RunWith(Parameterized.class)
+@RunWith(Thingy.class)
 public class ExD_Filtering {
 
     @Way
@@ -36,14 +33,8 @@ public class ExD_Filtering {
 
 
     @Test
-    public void test() {
+    public void test(Function<List<Integer>, List<Integer>> f) {
         assertThat(f.apply(asList(1, 2, 3, 4, 5, 6, 7, 8)), equalTo(asList(2, 4, 6, 8)));
     }
-
-    @Parameterized.Parameters public static Collection<?> tests() {
-        return waysFrom(ExD_Filtering.class, Function.class);
-    }
-
-    @Parameterized.Parameter public Function<List<Integer>, List<Integer>> f;
 
 }
