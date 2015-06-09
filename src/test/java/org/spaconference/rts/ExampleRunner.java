@@ -1,0 +1,86 @@
+package org.spaconference.rts;
+
+import org.junit.runners.BlockJUnit4ClassRunner;
+import org.junit.runners.model.FrameworkMethod;
+import org.junit.runners.model.InitializationError;
+
+import java.lang.annotation.Annotation;
+import java.lang.invoke.MethodHandleProxies;
+import java.lang.invoke.MethodHandles;
+import java.lang.reflect.Method;
+import java.util.AbstractMap.SimpleImmutableEntry;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
+
+public class ExampleRunner extends BlockJUnit4ClassRunner {
+
+    private static final MethodHandles.Lookup lookup = MethodHandles.lookup();
+
+    public ExampleRunner(Class<?> klass) throws InitializationError {
+        super(klass);
+    }
+
+    protected void validatePublicVoidNoArgMethods(Class<? extends Annotation> annotation, boolean isStatic, List<Throwable> errors) {
+        getTestClass().getAnnotatedMethods(annotation).stream().forEach(e -> e.validatePublicVoid(isStatic, errors));
+    }
+
+    @Override
+    protected List<FrameworkMethod> computeTestMethods() {
+        List<FrameworkMethod> testMethods = super.computeTestMethods();
+        if (testMethods.isEmpty())
+            return testMethods;
+
+        Map<Method, Object[]> testParameters = annotatedMethodsAsFunctions(getTestClass().getJavaClass(), testMethods.get(0).getMethod().getParameters()[0].getType(), Way.class);
+
+        List<FrameworkMethod> result = new ArrayList<>();
+
+        for (FrameworkMethod testMethod : testMethods) {
+            for (Entry<Method, Object[]> entry : testParameters.entrySet()) {
+                result.add(new TestMethodWithParams(testMethod, entry.getValue(), entry.getKey().getName()));
+            }
+        }
+        return result;
+    }
+
+
+    private Map<Method, Object[]> annotatedMethodsAsFunctions(Class<?> donorClass, Class<?> interfaceClass, Class<? extends Annotation> annotationClass) {
+        return Arrays.stream(donorClass.getDeclaredMethods())
+                .filter(m -> m.getDeclaredAnnotation(annotationClass) != null)
+                .map(m -> new SimpleImmutableEntry<>(m, new Object[]{functionFor(m, interfaceClass)}))
+                .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
+    }
+
+    private <T> T functionFor(Method method, Class<? extends T> interfaceClass) {
+        try {
+            return MethodHandleProxies.asInterfaceInstance(interfaceClass, lookup.unreflect(method));
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private class TestMethodWithParams extends FrameworkMethod {
+        private final Object[] params;
+        private final String paramsName;
+
+        public TestMethodWithParams(FrameworkMethod testMethod, Object[] params, String paramsName) {
+            super(testMethod.getMethod());
+            this.params = params;
+            this.paramsName = paramsName;
+            System.out.println("DMCG: " + "testMethod = [" + testMethod + "], params = [" + params + "], paramsName = [" + paramsName + "]");
+        }
+
+        @Override
+        public Object invokeExplosively(Object target, Object... ignored) throws Throwable {
+            return super.invokeExplosively(target, this.params);
+        }
+
+        @Override
+        public String getName() {
+            return super.getName() + " " + paramsName;
+        }
+    }
+}

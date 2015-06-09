@@ -12,7 +12,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 
-@RunWith(Thingy.class)
+@RunWith(ExampleRunner.class)
 public class ExE_Grouping {
     static class Product {
         public final int id;

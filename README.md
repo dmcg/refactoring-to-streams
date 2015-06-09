@@ -25,3 +25,5 @@ Things to cover
 * Take
 
 * Null vs Optional<T>
+
+* ForEach

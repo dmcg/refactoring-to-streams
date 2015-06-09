@@ -13,7 +13,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 
-@RunWith(Thingy.class)
+@RunWith(ExampleRunner.class)
 public class ExD_Filtering {
 
     @Way
