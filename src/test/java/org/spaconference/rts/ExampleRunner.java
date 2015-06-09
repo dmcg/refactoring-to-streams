@@ -4,7 +4,7 @@ import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.InitializationError;
 
-import java.lang.annotation.Annotation;
+import java.lang.annotation.*;
 import java.lang.invoke.MethodHandleProxies;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
@@ -17,6 +17,12 @@ import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 public class ExampleRunner extends BlockJUnit4ClassRunner {
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.METHOD})
+    public static @interface Way {
+    }
+
 
     private static final MethodHandles.Lookup lookup = MethodHandles.lookup();
 
@@ -70,7 +76,6 @@ public class ExampleRunner extends BlockJUnit4ClassRunner {
             super(testMethod.getMethod());
             this.params = params;
             this.paramsName = paramsName;
-            System.out.println("DMCG: " + "testMethod = [" + testMethod + "], params = [" + params + "], paramsName = [" + paramsName + "]");
         }
 
         @Override
@@ -78,9 +83,28 @@ public class ExampleRunner extends BlockJUnit4ClassRunner {
             return super.invokeExplosively(target, this.params);
         }
 
+
         @Override
         public String getName() {
             return super.getName() + " " + paramsName;
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            if (!super.equals(o)) return false;
+
+            TestMethodWithParams that = (TestMethodWithParams) o;
+            return paramsName.equals(that.paramsName);
+        }
+
+        @Override
+        public int hashCode() {
+            int result = super.hashCode();
+            result = 31 * result + paramsName.hashCode();
+            return result;
+        }
     }
+
 }

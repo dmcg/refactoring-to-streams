@@ -11,6 +11,7 @@ import java.util.function.Function;
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.spaconference.rts.ExampleRunner.Way;
 
 
 @RunWith(ExampleRunner.class)
@@ -24,12 +25,12 @@ public class ExD_Filtering {
                 result.add(x);
         }
         return result;
-    };
+    }
 
     @Way
     public static List<Integer> newWay(List<Integer> xs) {
         return Collections.emptyList();
-    };
+    }
 
 
     @Test

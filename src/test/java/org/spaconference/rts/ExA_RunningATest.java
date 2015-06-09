@@ -7,6 +7,7 @@ import java.util.function.Supplier;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.spaconference.rts.ExampleRunner.Way;
 
 @RunWith(ExampleRunner.class)
 public class ExA_RunningATest {
@@ -18,7 +19,7 @@ public class ExA_RunningATest {
 
     @Way
     public static String newWay() {
-        return "something";
+        return "something else";
     }
 
     @Test

@@ -10,6 +10,7 @@ import java.util.function.Function;
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.spaconference.rts.ExampleRunner.Way;
 
 
 @RunWith(ExampleRunner.class)

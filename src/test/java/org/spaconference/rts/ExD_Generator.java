@@ -13,6 +13,7 @@ import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.spaconference.rts.ExampleRunner.Way;
 
 
 @RunWith(ExampleRunner.class)
@@ -31,7 +32,7 @@ public class ExD_Generator {
             result.add(t);
         }
         return result;
-    };
+    }
 
     @Way
     public static List<Integer> newWay(int count) {
