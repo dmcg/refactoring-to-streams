@@ -1,90 +1,82 @@
 package org.spaconference.rts;
 
 import com.google.common.collect.ImmutableMap;
-import org.junit.experimental.theories.DataPoint;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.*;
 import java.util.function.Function;
 
+import static com.google.common.collect.Sets.newHashSet;
 import static java.util.Arrays.asList;
+import static java.util.Collections.shuffle;
 import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.toSet;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.spaconference.rts.ExampleRunner.Way;
 
 
-@RunWith(Theories.class)
+@RunWith(ExampleRunner.class)
 public class E_Grouping {
     static class Product {
-        public final int id;
         public final String name;
         public final String category;
 
-        public Product(int id, String name, String category) {
-            this.id = id;
+        public Product(String name, String category) {
             this.name = name;
             this.category = category;
         }
 
-
         @Override
         public String toString() {
-            return "Product{" +
-                    "id=" + id +
-                    ", name='" + name + '\'' +
-                    ", category='" + category + '\'' +
-                    '}';
+            return "Product{name='" + name + '\'' + ", category='" + category + '\'' + '}';
         }
     }
 
-    public static Product converse = new Product(1, "converse", "shoes");
-    public static Product bovverBoots = new Product(2, "bovver boots", "shoes");
+    public static Product winklePickers = new Product("winkle pickers", "shoes");
+    public static Product bovverBoots = new Product("bovver boots", "shoes");
+    public static Product fez = new Product("fez", "hats");
+    public static Product deerstalker = new Product("deerstalker", "hats");
+    public static Product duncesCap = new Product("dunces's cap", "hats");
+    public static Product yFronts = new Product("y-fronts", "pants");
+    public static Product boxers = new Product("boxers", "dogs");
 
-    public static Product dunceHat = new Product(3, "dunce hat", "hats");
-    public static Product deerstalker = new Product(4, "deerstalker", "hats");
-    public static Product wizardsHat = new Product(5, "wizards hat", "hats");
-
-    public static Product yFronts = new Product(6, "y-fronts", "pants");
-    public static Product boxers = new Product(7, "y-fronts", "dogs");
-
-    @DataPoint
-    public static Function<List<Product>, Map<String,List<Product>>> FOR_LOOP = products -> {
-        SortedMap<String, List<Product>> categories = new TreeMap<>();
+    @Way
+    public static Map<String,Set<Product>> oldWay(List<Product> products) {
+        SortedMap<String, Set<Product>> categories = new TreeMap<>();
 
         for (Product p : products) {
             if (categories.containsKey(p.category)) {
                 categories.get(p.category).add(p);
             }
             else {
-                List<Product> categoryProducts= new ArrayList<>();
+                Set<Product> categoryProducts= new HashSet<>();
                 categoryProducts.add(p);
                 categories.put(p.category, categoryProducts);
             }
         }
 
         return categories;
-    };
+    }
 
-    @DataPoint
-    public static Function<List<Product>, Map<String,List<Product>>> STREAMS =
-            products -> products.stream().collect(groupingBy(p -> p.category));
+    @Way
+    public static Map<String,Set<Product>> newWay(List<Product> products) {
+        return products.stream().collect(groupingBy(p -> p.category, toSet()));
+    }
 
-
-    @Theory
-    public void test(Function<List<Product>,Map<String,List<Product>>> f) {
+    @Test
+    public void test(Function<List<Product>,Map<String,Set<Product>>> f) {
         List<Product> products = asList(
-            converse, bovverBoots, dunceHat, deerstalker, wizardsHat, yFronts, boxers);
+                winklePickers, bovverBoots, fez, deerstalker, duncesCap, yFronts, boxers);
+        shuffle(products);
 
-        Map<String,List<Product>> categorised = ImmutableMap.of(
-            "shoes", asList(converse, bovverBoots),
-            "hats", asList(dunceHat, deerstalker, wizardsHat),
-            "pants", asList(yFronts),
-            "dogs", asList(boxers));
+        Map<String,Set<Product>> categorised = ImmutableMap.<String,Set<Product>>of(
+            "shoes", newHashSet(winklePickers, bovverBoots),
+            "hats", newHashSet(fez, deerstalker, duncesCap),
+            "pants", newHashSet(yFronts),
+            "dogs", newHashSet(boxers));
 
         assertThat(f.apply(products), equalTo(categorised));
     }
-
-
 }
