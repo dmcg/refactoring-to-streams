@@ -1,11 +1,11 @@
 package org.spaconference.rts;
 
-import org.junit.experimental.theories.DataPoint;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
@@ -13,13 +13,14 @@ import java.util.function.Function;
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.spaconference.rts.Ways.waysFrom;
 
 
-@RunWith(Theories.class)
+@RunWith(Parameterized.class)
 public class ExD_Filtering {
 
-    @DataPoint
-    public static Function<List<Integer>, List<Integer>> FOR_LOOP = xs -> {
+    @Way
+    public static List<Integer> oldWay(List<Integer> xs) {
         List<Integer> result = new ArrayList<>();
         for (int x : xs) {
             if (x % 2 == 0)
@@ -28,13 +29,21 @@ public class ExD_Filtering {
         return result;
     };
 
-    @DataPoint
-    public static Function<List<Integer>, List<Integer>> STREAM = strings -> Collections.emptyList();
+    @Way
+    public static List<Integer> newWay(List<Integer> xs) {
+        return Collections.emptyList();
+    };
 
 
-    @Theory
-    public void test(Function<List<Integer>, List<Integer>> f) {
+    @Test
+    public void test() {
         assertThat(f.apply(asList(1, 2, 3, 4, 5, 6, 7, 8)), equalTo(asList(2, 4, 6, 8)));
     }
+
+    @Parameterized.Parameters public static Collection<?> tests() {
+        return waysFrom(ExD_Filtering.class, Function.class);
+    }
+
+    @Parameterized.Parameter public Function<List<Integer>, List<Integer>> f;
 
 }

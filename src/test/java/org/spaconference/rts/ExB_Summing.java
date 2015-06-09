@@ -1,52 +1,57 @@
 package org.spaconference.rts;
 
-import org.junit.experimental.theories.DataPoint;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
-import java.util.function.LongFunction;
+import java.util.Collection;
+import java.util.function.LongUnaryOperator;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 
-@RunWith(Theories.class)
+@RunWith(Parameterized.class)
 public class ExB_Summing {
 
-    @DataPoint
-    public static Long2Long FOR_LOOP = limit -> {
+    @Way
+    public static long oldWay(long limit) {
         long result = 0;
         for (long i = 0; i < limit; i++) {
             result += i;
         }
         return result;
-    };
-
-    @DataPoint
-    public static Long2Long STREAM = limit -> { return 0L; };
-
-
-    @Theory
-    public void is_0_for_limit_0(Long2Long sum) {
-        assertThat(sum.apply(0), equalTo(0L));
     }
 
-    @Theory
-    public void is_3_for_limit_3(Long2Long sum) {
-        assertThat(sum.apply(3), equalTo(3L));
+    @Way
+    public static long newWay(long limit) {
+        return 0;
     }
 
-    @Theory
-    public void is_6_for_limit_4(Long2Long sum) {
-        assertThat(sum.apply(4), equalTo(6L));
+    @Test
+    public void is_0_for_limit_0() {
+        assertThat(f.applyAsLong(0), equalTo(0L));
     }
 
-    @Theory
-    public void is_big_for_MAX_VALUE(Long2Long sum) {
-        assertThat(sum.apply(Integer.MAX_VALUE), equalTo(2305843005992468481L));
+    @Test
+    public void is_3_for_limit_3() {
+        assertThat(f.applyAsLong(3), equalTo(3L));
     }
 
-    static interface Long2Long extends LongFunction<Long> {}
+    @Test
+    public void is_6_for_limit_4() {
+        assertThat(f.applyAsLong(4), equalTo(6L));
+    }
+
+    @Test
+    public void is_big_for_MAX_VALUE() {
+        assertThat(f.applyAsLong(Integer.MAX_VALUE), equalTo(2305843005992468481L));
+    }
+
+    @Parameterized.Parameters public static Collection<?> tests() {
+        return Ways.waysFrom(ExB_Summing.class, LongUnaryOperator.class);
+    }
+
+    @Parameterized.Parameter public LongUnaryOperator f;
 
 }

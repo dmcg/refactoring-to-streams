@@ -1,10 +1,9 @@
 package org.spaconference.rts;
 
 import com.google.common.collect.ImmutableMap;
-import org.junit.experimental.theories.DataPoint;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 import java.util.*;
 import java.util.function.Function;
@@ -12,9 +11,10 @@ import java.util.function.Function;
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.spaconference.rts.Ways.waysFrom;
 
 
-@RunWith(Theories.class)
+@RunWith(Parameterized.class)
 public class ExE_Grouping {
     static class Product {
         public final int id;
@@ -27,13 +27,18 @@ public class ExE_Grouping {
             this.category = category;
         }
 
+
         @Override
         public String toString() {
-            return "Product{id=" + id + ", name='" + name + '\'' + ", category='" + category + '\'' + '}';
+            return "Product{" +
+                    "id=" + id +
+                    ", name='" + name + '\'' +
+                    ", category='" + category + '\'' +
+                    '}';
         }
     }
 
-    public static Product converse = new Product(1, "winkle pickers", "shoes");
+    public static Product converse = new Product(1, "converse", "shoes");
     public static Product bovverBoots = new Product(2, "bovver boots", "shoes");
 
     public static Product dunceHat = new Product(3, "dunce hat", "hats");
@@ -41,10 +46,11 @@ public class ExE_Grouping {
     public static Product wizardsHat = new Product(5, "wizards hat", "hats");
 
     public static Product yFronts = new Product(6, "y-fronts", "pants");
-    public static Product boxers = new Product(7, "boxers", "dogs");
+    public static Product boxers = new Product(7, "y-fronts", "dogs");
 
-    @DataPoint
-    public static Function<List<Product>, Map<String,List<Product>>> FOR_LOOP = products -> {
+
+    @Way
+    public static Map<String,List<Product>> oldWay(List<Product> products) {
         SortedMap<String, List<Product>> categories = new TreeMap<>();
 
         for (Product p : products) {
@@ -57,17 +63,17 @@ public class ExE_Grouping {
                 categories.put(p.category, categoryProducts);
             }
         }
-
         return categories;
-    };
+    }
 
-    @DataPoint
-    public static Function<List<Product>, Map<String,List<Product>>> STREAMS =
-            products -> new HashMap<>();
+    @Way
+    public static Map<String,List<Product>> newWay(List<Product> products) {
+        return new HashMap<>();
+    }
 
 
-    @Theory
-    public void test(Function<List<Product>,Map<String,List<Product>>> f) {
+    @Test
+    public void test() {
         List<Product> products = asList(
             converse, bovverBoots, dunceHat, deerstalker, wizardsHat, yFronts, boxers);
 
@@ -79,4 +85,11 @@ public class ExE_Grouping {
 
         assertThat(f.apply(products), equalTo(categorised));
     }
+
+    @Parameterized.Parameters public static Collection<?> tests() {
+        return waysFrom(ExE_Grouping.class, Function.class);
+    }
+
+    @Parameterized.Parameter public Function<List<Product>, Map<String,List<Product>>> f;
+
 }

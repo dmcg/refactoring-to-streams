@@ -1,31 +1,37 @@
 package org.spaconference.rts;
 
-import org.junit.experimental.theories.DataPoint;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
+import java.util.Collection;
 import java.util.function.Supplier;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-@RunWith(Theories.class)
+@RunWith(Parameterized.class)
 public class ExA_RunningATest {
 
-    @DataPoint
-    public static Supplier<String> SUPPLIER_AS_CLASS = new Supplier<String>() {
-        public String get() {
-            return "That took longer than expected";
-        }
-    };
 
-    @DataPoint
-    public static Supplier<String> SUPPLIER_AS_LAMBDA = null;
+    @Parameterized.Parameters public static Collection<?> tests() throws IllegalAccessException {
+        return Ways.waysFrom(ExA_RunningATest.class, Supplier.class);
+    }
 
+    @Parameterized.Parameter public Supplier<String> f;
 
-    @Theory
-    public void returns_a_result(Supplier<String> f) {
+    @Way
+    public static String oldWay() {
+        return "That took longer than expected";
+    }
+
+    @Way
+    public static String newWay() {
+        return "something";
+    }
+
+    @Test
+    public void returns_a_result() {
         assertThat(f.get(), equalTo("That took longer than expected"));
     }
 
