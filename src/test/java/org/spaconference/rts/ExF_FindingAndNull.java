@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Predicate;
 
@@ -41,7 +40,7 @@ public class ExF_FindingAndNull {
     final Hat topper = new Hat("topper", 1, 2, 4);
     final Hat trilby = new Hat("trilby", 0, 5, 3);
     final Hat panama = new Hat("panama", 3, 1, 4);
-    final Hat stetson = new Hat("stetson", 0, 2, 9);
+    final Hat stetson = new Hat("stetson", 0, 2, 6);
     final List<Hat> hats = asList(deerstalker, bowler, topper, trilby, panama, stetson);
 
     public static Hat findHatOldWay(List<Hat> hats, Predicate<? super Hat> criteria) {
@@ -55,31 +54,33 @@ public class ExF_FindingAndNull {
     }
 
     @Way
-    public static Optional<Hat> oldWay(List<Hat> hats, Predicate<? super Hat> criteria) {
-        return Optional.ofNullable(findHatOldWay(hats, criteria));
+    public static String oldWay(List<Hat> hats, Predicate<? super Hat> criteria) {
+        Hat found = findHatOldWay(hats, criteria);
+        return found != null ? found.name : "<nothing found>";
     }
 
     @Way
-    public static Optional<Hat>newWay(List<Hat> hats, Predicate<? super Hat> criteria) {
-        return Optional.of(new Hat("wrong answer", 0, 0, 0));
+    public static String newWay(List<Hat> hats, Predicate<? super Hat> criteria) {
+        return "<implement it>";
     }
 
     @Test
-    public void findSmallHatInStock(BiFunction<List<Hat>,Predicate<? super Hat>,Optional<Hat>> f) {
-        Optional<Hat> found = f.apply(hats, h->h.stockSmall > 0);
-        assertThat(found, equalTo(Optional.of(bowler)));
+    public void findSmallHatInStock(BiFunction<List<Hat>,Predicate<? super Hat>,String> f) {
+        String found = f.apply(hats, h->h.stockSmall > 0);
+        assertThat(found, equalTo("bowler"));
     }
 
     @Test
-    public void findHatWithOneMediumInStock(BiFunction<List<Hat>,Predicate<? super Hat>,Optional<Hat>> f) {
-        Optional<Hat> found = f.apply(hats, h->h.stockMedium == 1);
-        assertThat(found, equalTo(Optional.of(panama)));
+    public void findHatWithOneMediumInStock(BiFunction<List<Hat>,Predicate<? super Hat>,String> f) {
+        String found = f.apply(hats, h->h.stockMedium == 1);
+        assertThat(found, equalTo("panama"));
     }
 
     @Test
-    public void findHatWithExcessStock(BiFunction<List<Hat>,Predicate<? super Hat>,Optional<Hat>> f) {
-        int maxStock = 10;
-        Optional<Hat> found = f.apply(hats, h->h.stockSmall > maxStock || h.stockMedium > maxStock || h.stockLarge > maxStock);
-        assertThat(found, equalTo(Optional.empty()));
+    public void findHatWithExcessStock(BiFunction<List<Hat>,Predicate<? super Hat>,String> f) {
+        Predicate<Hat> hasExcessStock = h -> h.stockSmall > 8 || h.stockMedium > 10 || h.stockLarge > 7;
+
+        String found = f.apply(hats, hasExcessStock);
+        assertThat(found, equalTo("<nothing found>"));
     }
 }
