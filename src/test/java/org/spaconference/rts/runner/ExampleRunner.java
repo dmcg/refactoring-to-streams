@@ -19,7 +19,7 @@ public class ExampleRunner extends BlockJUnit4ClassRunner {
 
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.METHOD})
-    public static @interface Way {
+    public @interface Way {
     }
 
     public ExampleRunner(Class<?> klass) throws InitializationError {
