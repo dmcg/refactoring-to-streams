@@ -2,28 +2,28 @@
 
 Things to cover
 
-* [ ] Converting mutation-and-for-loops and Guava iterables
+* [x] Converting mutation-and-for-loops and Guava iterables
 
-* [ ] Performance
+* [x] Performance
 
-* [ ] Parallelising
+* [x] Parallelising
 
-* [ ] Filtering
+* [x] Filtering
 
-* [ ] Mapping
+* [x] Mapping
 
 * [ ] Reducing
 
-* [ ] Collecting
+* [x] Collecting
 
-* [ ] Partitioning and grouping
+* [x] Partitioning and grouping
 
-* [ ] Generators
+* [x] Generators (infinite streams, streams evaluate lazily)
 
-* [ ] Flatmap
+* [x] Take (re. streams evaluate lazily)
 
-* [ ] Take
+* [x] Flatmap
 
-* [ ] Null vs Optional<T>
+* [x] Null vs Optional<T>
 
 * [ ] ForEach
