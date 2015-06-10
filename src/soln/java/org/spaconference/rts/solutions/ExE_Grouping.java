@@ -1,8 +1,9 @@
-package org.spaconference.rts;
+package org.spaconference.rts.solutions;
 
 import com.google.common.collect.ImmutableMap;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.spaconference.rts.runner.ExampleRunner;
 
 import java.util.*;
 import java.util.function.Function;
@@ -14,11 +15,10 @@ import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toSet;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.spaconference.rts.ExampleRunner.Way;
 
 
 @RunWith(ExampleRunner.class)
-public class E_Grouping {
+public class ExE_Grouping {
     static class Product {
         public final String name;
         public final String category;
@@ -42,7 +42,7 @@ public class E_Grouping {
     public static Product yFronts = new Product("y-fronts", "pants");
     public static Product boxers = new Product("boxers", "dogs");
 
-    @Way
+    @ExampleRunner.Way
     public static Map<String,Set<Product>> oldWay(List<Product> products) {
         SortedMap<String, Set<Product>> categories = new TreeMap<>();
 
@@ -60,7 +60,7 @@ public class E_Grouping {
         return categories;
     }
 
-    @Way
+    @ExampleRunner.Way
     public static Map<String,Set<Product>> newWay(List<Product> products) {
         return products.stream().collect(groupingBy(p -> p.category, toSet()));
     }
