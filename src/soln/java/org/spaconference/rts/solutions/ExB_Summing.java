@@ -4,8 +4,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.spaconference.rts.runner.ExampleRunner;
 
-import java.util.function.LongUnaryOperator;
-import java.util.stream.LongStream;
+import java.util.function.ToIntFunction;
+import java.util.stream.IntStream;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -16,37 +16,26 @@ import static org.spaconference.rts.runner.ExampleRunner.Way;
 public class ExB_Summing {
 
     @Way
-    public static long oldWay(long limit) {
-        long result = 0;
-        for (long i = 0; i < limit; i++) {
+    public static int oldWay(int[] ints) {
+        int result = 0;
+        for (Integer i : ints) {
             result += i;
         }
         return result;
     }
 
     @Way
-    public static long newWay(long limit) {
-        return LongStream.range(0, limit).parallel().sum();
+    public static int newWay(int[] ints) {
+        return IntStream.of(ints).sum();
     }
 
     @Test
-    public void is_0_for_limit_0(LongUnaryOperator f) {
-        assertThat(f.applyAsLong(0), equalTo(0L));
+    public void sums_array_elements(ToIntFunction<int[]> f) {
+        assertThat(f.applyAsInt(new int[]{1,2,3,4,5}), equalTo(15));
     }
 
     @Test
-    public void is_3_for_limit_3(LongUnaryOperator f) {
-        assertThat(f.applyAsLong(3), equalTo(3L));
+    public void is_0_for_empty_array(ToIntFunction<int[]> f) {
+        assertThat(f.applyAsInt(new int[0]), equalTo(0));
     }
-
-    @Test
-    public void is_6_for_limit_4(LongUnaryOperator f) {
-        assertThat(f.applyAsLong(4), equalTo(6L));
-    }
-
-    @Test
-    public void is_big_for_MAX_VALUE(LongUnaryOperator f) {
-        assertThat(f.applyAsLong(Integer.MAX_VALUE), equalTo(2305843005992468481L));
-    }
-
 }
