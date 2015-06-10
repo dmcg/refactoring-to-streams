@@ -1,9 +1,8 @@
 package org.spaconference.rts.solutions;
 
-import org.junit.experimental.theories.DataPoint;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.spaconference.rts.runner.ExampleRunner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,27 +12,29 @@ import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.spaconference.rts.runner.ExampleRunner.Way;
 
 
-@RunWith(Theories.class)
-public class D_Filtering {
+@RunWith(ExampleRunner.class)
+public class ExD_Filtering {
 
-    @DataPoint
-    public static Function<List<Integer>, List<Integer>> FOR_LOOP = xs -> {
+    @Way
+    public static List<Integer> oldWay(List<Integer> xs) {
         List<Integer> result = new ArrayList<>();
         for (int x : xs) {
             if (x % 2 == 0)
                 result.add(x);
         }
         return result;
-    };
+    }
 
-    @DataPoint
-    public static Function<List<Integer>, List<Integer>> STREAM = xs ->
-            xs.stream().filter(x -> x % 2 == 0).collect(toList());
+    @Way
+    public static List<Integer> newWay(List<Integer> xs) {
+        return xs.stream().filter(x -> x % 2 == 0).collect(toList());
+    }
 
 
-    @Theory
+    @Test
     public void test(Function<List<Integer>, List<Integer>> f) {
         assertThat(f.apply(asList(1, 2, 3, 4, 5, 6, 7, 8)), equalTo(asList(2, 4, 6, 8)));
     }

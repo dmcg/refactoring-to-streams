@@ -1,9 +1,8 @@
 package org.spaconference.rts.solutions;
 
-import org.junit.experimental.theories.DataPoint;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.spaconference.rts.runner.ExampleRunner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,13 +14,14 @@ import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.spaconference.rts.runner.ExampleRunner.Way;
 
 
-@RunWith(Theories.class)
-public class D_Generator {
+@RunWith(ExampleRunner.class)
+public class ExD_Generator {
 
-    @DataPoint
-    public static IntFunction<List<Integer>> FOR_LOOP = count -> {
+    @Way
+    public static List<Integer> oldWay(int count) {
         List<Integer> result = new ArrayList<>();
         int i1 = 1;
         int i2 = 2;
@@ -33,17 +33,11 @@ public class D_Generator {
             result.add(t);
         }
         return result;
-    };
+    }
 
-    @DataPoint
-    public static IntFunction<List<Integer>> STREAM = count ->
-            IntStream.generate(fibonacciSupplier(1, 2)).limit(count).boxed().collect(toList());
-
-
-
-    @Theory
-    public void test(IntFunction<List<Integer>> f) {
-        assertThat(f.apply(10), equalTo(asList(1, 2, 3, 5, 8, 13, 21, 34, 55, 89)));
+    @Way
+    public static List<Integer> newWay(int count) {
+        return IntStream.generate(fibonacciSupplier(1, 2)).limit(count).boxed().collect(toList());
     }
 
     public static IntSupplier fibonacciSupplier(int initial1, int initial2) {
@@ -60,4 +54,11 @@ public class D_Generator {
             }
         };
     }
+
+    @Test
+    public void test(IntFunction<List<Integer>> f) {
+        assertThat(f.apply(10), equalTo(asList(1, 2, 3, 5, 8, 13, 21, 34, 55, 89)));
+    }
+
 }
+

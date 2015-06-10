@@ -1,10 +1,9 @@
 package org.spaconference.rts.solutions;
 
 import com.google.common.collect.ImmutableMap;
-import org.junit.experimental.theories.DataPoint;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.spaconference.rts.runner.ExampleRunner;
 
 import java.util.*;
 import java.util.function.Function;
@@ -13,10 +12,11 @@ import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.groupingBy;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.spaconference.rts.runner.ExampleRunner.Way;
 
 
-@RunWith(Theories.class)
-public class E_Grouping {
+@RunWith(ExampleRunner.class)
+public class ExE_Grouping {
     static class Product {
         public final int id;
         public final String name;
@@ -49,8 +49,9 @@ public class E_Grouping {
     public static Product yFronts = new Product(6, "y-fronts", "pants");
     public static Product boxers = new Product(7, "y-fronts", "dogs");
 
-    @DataPoint
-    public static Function<List<Product>, Map<String,List<Product>>> FOR_LOOP = products -> {
+
+    @Way
+    public static Map<String,List<Product>> oldWay(List<Product> products) {
         SortedMap<String, List<Product>> categories = new TreeMap<>();
 
         for (Product p : products) {
@@ -63,28 +64,26 @@ public class E_Grouping {
                 categories.put(p.category, categoryProducts);
             }
         }
-
         return categories;
-    };
+    }
 
-    @DataPoint
-    public static Function<List<Product>, Map<String,List<Product>>> STREAMS =
-            products -> products.stream().collect(groupingBy(p -> p.category));
-
-
-    @Theory
-    public void test(Function<List<Product>,Map<String,List<Product>>> f) {
-        List<Product> products = asList(
-            converse, bovverBoots, dunceHat, deerstalker, wizardsHat, yFronts, boxers);
-
-        Map<String,List<Product>> categorised = ImmutableMap.of(
-            "shoes", asList(converse, bovverBoots),
-            "hats", asList(dunceHat, deerstalker, wizardsHat),
-            "pants", asList(yFronts),
-            "dogs", asList(boxers));
-
-        assertThat(f.apply(products), equalTo(categorised));
+    @Way
+    public static Map<String,List<Product>> newWay(List<Product> products) {
+        return products.stream().collect(groupingBy(p -> p.category));
     }
 
 
+    @Test
+    public void test(Function<List<Product>, Map<String,List<Product>>> f) {
+        List<Product> products = asList(
+                converse, bovverBoots, dunceHat, deerstalker, wizardsHat, yFronts, boxers);
+
+        Map<String,List<Product>> categorised = ImmutableMap.of(
+                "shoes", asList(converse, bovverBoots),
+                "hats", asList(dunceHat, deerstalker, wizardsHat),
+                "pants", asList(yFronts),
+                "dogs", asList(boxers));
+
+        assertThat(f.apply(products), equalTo(categorised));
+    }
 }
