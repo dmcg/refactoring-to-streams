@@ -9,12 +9,14 @@ import java.lang.invoke.MethodHandleProxies;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
 import java.util.AbstractMap.SimpleImmutableEntry;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toList;
 
 public class ExampleRunner extends BlockJUnit4ClassRunner {
 
@@ -23,13 +25,11 @@ public class ExampleRunner extends BlockJUnit4ClassRunner {
     public static @interface Way {
     }
 
-
-    private static final MethodHandles.Lookup lookup = MethodHandles.lookup();
-
     public ExampleRunner(Class<?> klass) throws InitializationError {
         super(klass);
     }
 
+    @Override
     protected void validatePublicVoidNoArgMethods(Class<? extends Annotation> annotation, boolean isStatic, List<Throwable> errors) {
         getTestClass().getAnnotatedMethods(annotation).stream().forEach(e -> e.validatePublicVoid(isStatic, errors));
     }
@@ -41,31 +41,31 @@ public class ExampleRunner extends BlockJUnit4ClassRunner {
             return testMethods;
 
         Map<Method, Object[]> testParameters = annotatedMethodsAsFunctions(getTestClass().getJavaClass(), testMethods.get(0).getMethod().getParameters()[0].getType(), Way.class);
-
-        List<FrameworkMethod> result = new ArrayList<>();
-
-        for (FrameworkMethod testMethod : testMethods) {
-            for (Entry<Method, Object[]> entry : testParameters.entrySet()) {
-                result.add(new TestMethodWithParams(testMethod, entry.getValue(), entry.getKey().getName()));
-            }
-        }
-        return result;
+        return testMethods.stream().flatMap(m -> testMethodWithParamsFor(m, testParameters)).collect(toList());
     }
 
+    private Stream<TestMethodWithParams> testMethodWithParamsFor(FrameworkMethod testMethod, Map<Method, Object[]> testParameters) {
+        return testParameters.entrySet().stream().map(e -> new TestMethodWithParams(testMethod, e.getValue(), e.getKey().getName()));
+    }
 
     private Map<Method, Object[]> annotatedMethodsAsFunctions(Class<?> donorClass, Class<?> interfaceClass, Class<? extends Annotation> annotationClass) {
+        MethodHandles.Lookup lookup = MethodHandles.lookup();
         return Arrays.stream(donorClass.getDeclaredMethods())
                 .filter(m -> m.getDeclaredAnnotation(annotationClass) != null)
-                .map(m -> new SimpleImmutableEntry<>(m, new Object[]{functionFor(m, interfaceClass)}))
+                .map(m -> mapEntry(m, new Object[]{functionFor(m, interfaceClass, lookup)}))
                 .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
     }
 
-    private <T> T functionFor(Method method, Class<? extends T> interfaceClass) {
+    private <T> T functionFor(Method method, Class<? extends T> interfaceClass, MethodHandles.Lookup lookup) {
         try {
             return MethodHandleProxies.asInterfaceInstance(interfaceClass, lookup.unreflect(method));
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private <K,V> Entry<K,V> mapEntry(K key, V value) {
+        return new SimpleImmutableEntry<>(key, value);
     }
 
     private class TestMethodWithParams extends FrameworkMethod {
@@ -82,7 +82,6 @@ public class ExampleRunner extends BlockJUnit4ClassRunner {
         public Object invokeExplosively(Object target, Object... ignored) throws Throwable {
             return super.invokeExplosively(target, this.params);
         }
-
 
         @Override
         public String getName() {
@@ -106,5 +105,4 @@ public class ExampleRunner extends BlockJUnit4ClassRunner {
             return result;
         }
     }
-
 }
