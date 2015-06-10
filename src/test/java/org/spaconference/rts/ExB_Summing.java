@@ -2,12 +2,13 @@ package org.spaconference.rts;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.spaconference.rts.runner.ExampleRunner;
 
 import java.util.function.LongUnaryOperator;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.spaconference.rts.ExampleRunner.Way;
+import static org.spaconference.rts.runner.ExampleRunner.Way;
 
 
 @RunWith(ExampleRunner.class)

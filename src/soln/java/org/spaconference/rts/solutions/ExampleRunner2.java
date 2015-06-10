@@ -1,4 +1,4 @@
-package org.spaconference.rts;
+package org.spaconference.rts.solutions;
 
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.FrameworkMethod;
@@ -9,20 +9,23 @@ import java.lang.invoke.MethodHandleProxies;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
 import java.util.AbstractMap.SimpleImmutableEntry;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-public class ExampleRunner extends BlockJUnit4ClassRunner {
+import static java.util.stream.Collectors.toList;
+
+public class ExampleRunner2 extends BlockJUnit4ClassRunner {
 
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.METHOD})
     public static @interface Way {
     }
 
-    public ExampleRunner(Class<?> klass) throws InitializationError {
+    public ExampleRunner2(Class<?> klass) throws InitializationError {
         super(klass);
     }
 
@@ -38,26 +41,19 @@ public class ExampleRunner extends BlockJUnit4ClassRunner {
             return testMethods;
 
         Map<Method, Object[]> testParameters = annotatedMethodsAsFunctions(getTestClass().getJavaClass(), testMethods.get(0).getMethod().getParameters()[0].getType(), Way.class);
+        return testMethods.stream().flatMap(m -> testMethodWithParamsFor(m, testParameters)).collect(toList());
+    }
 
-        List<FrameworkMethod> result = new ArrayList<>();
-        for (FrameworkMethod testMethod : testMethods) {
-            for (Entry<Method, Object[]> methodEntry : testParameters.entrySet()) {
-                result.add(new TestMethodWithParams(testMethod, methodEntry.getValue(), methodEntry.getKey().getName()));
-            }
-        }
-        return result;
+    private Stream<TestMethodWithParams> testMethodWithParamsFor(FrameworkMethod testMethod, Map<Method, Object[]> testParameters) {
+        return testParameters.entrySet().stream().map(e -> new TestMethodWithParams(testMethod, e.getValue(), e.getKey().getName()));
     }
 
     private Map<Method, Object[]> annotatedMethodsAsFunctions(Class<?> donorClass, Class<?> interfaceClass, Class<? extends Annotation> annotationClass) {
         MethodHandles.Lookup lookup = MethodHandles.lookup();
-
-        Map<Method, Object[]> result = new HashMap<>();
-        for (Method method : donorClass.getDeclaredMethods()) {
-            if (method.getDeclaredAnnotation(annotationClass) != null) {
-                result.put(method, new Object[]{functionFor(method, interfaceClass, lookup)});
-            }
-        }
-        return result;
+        return Arrays.stream(donorClass.getDeclaredMethods())
+                .filter(m -> m.getDeclaredAnnotation(annotationClass) != null)
+                .map(m -> mapEntry(m, new Object[]{functionFor(m, interfaceClass, lookup)}))
+                .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
     }
 
     private <T> T functionFor(Method method, Class<? extends T> interfaceClass, MethodHandles.Lookup lookup) {
@@ -69,7 +65,7 @@ public class ExampleRunner extends BlockJUnit4ClassRunner {
     }
 
     private <K,V> Entry<K,V> mapEntry(K key, V value) {
-        return new SimpleImmutableEntry<K, V>(key, value);
+        return new SimpleImmutableEntry<>(key, value);
     }
 
     private class TestMethodWithParams extends FrameworkMethod {

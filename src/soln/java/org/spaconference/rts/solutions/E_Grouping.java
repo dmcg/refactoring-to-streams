@@ -1,4 +1,4 @@
-package org.spaconference.rts;
+package org.spaconference.rts.solutions;
 
 import com.google.common.collect.ImmutableMap;
 import org.junit.experimental.theories.DataPoint;

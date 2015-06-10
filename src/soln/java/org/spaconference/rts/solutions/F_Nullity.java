@@ -1,4 +1,4 @@
-package org.spaconference.rts;
+package org.spaconference.rts.solutions;
 
 import com.google.common.collect.ImmutableMap;
 import org.junit.experimental.theories.DataPoint;
@@ -6,9 +6,9 @@ import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Optional;
 
-import static java.util.stream.Collectors.groupingBy;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 

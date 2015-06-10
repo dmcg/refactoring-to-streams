@@ -1,4 +1,4 @@
-package org.spaconference.rts;
+package org.spaconference.rts.solutions;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
