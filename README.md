@@ -14,5 +14,5 @@ Things to cover
 * [x] Take (re. streams evaluate lazily)
 * [x] Flatmap
 * [x] Null vs Optional<T>
-* [ ] ForEach
+* [x] ForEach
 * [ ] Error handling and exceptions 
