@@ -23,19 +23,9 @@ public class ExB_SummingRange {
         return result;
     }
 
-    @Way
-    public static long newWay(long limit) {
-        return 0;
-    }
-
     @Test
     public void is_0_for_limit_0(LongUnaryOperator f) {
         assertThat(f.applyAsLong(0), equalTo(0L));
-    }
-
-    @Test
-    public void is_3_for_limit_3(LongUnaryOperator f) {
-        assertThat(f.applyAsLong(3), equalTo(3L));
     }
 
     @Test

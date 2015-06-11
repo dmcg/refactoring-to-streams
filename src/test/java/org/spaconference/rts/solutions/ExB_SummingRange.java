@@ -25,18 +25,26 @@ public class ExB_SummingRange {
     }
 
     @Way
-    public static long newWay(long limit) {
+    public static long step1_forEach(long limit) {
+        final long[] result = {0};
+        LongStream.range(0, limit).forEach(i -> result[0] += i);
+        return result[0];
+    }
+
+    @Way
+    public static long step2_sum(long limit) {
+        return LongStream.range(0, limit).sum();
+    }
+
+    @Way
+    public static long step3_parallel(long limit) {
         return LongStream.range(0, limit).parallel().sum();
     }
+
 
     @Test
     public void is_0_for_limit_0(LongUnaryOperator f) {
         assertThat(f.applyAsLong(0), equalTo(0L));
-    }
-
-    @Test
-    public void is_3_for_limit_3(LongUnaryOperator f) {
-        assertThat(f.applyAsLong(3), equalTo(3L));
     }
 
     @Test
