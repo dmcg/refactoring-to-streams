@@ -28,10 +28,23 @@ public class ExC_Mapping {
     }
 
     @Way
-    public static List<Integer> newWay(List<String> strings) {
-        return strings.stream().map(Integer::parseInt).collect(toList());
+    public static List<Integer> step1_stream(List<String> strings) {
+        List<Integer> result = new ArrayList<>();
+        strings.stream().forEach(s -> result.add(Integer.parseInt(s)));
+        return result;
     }
 
+    @Way
+    public static List<Integer> step2_map(List<String> strings) {
+        List<Integer> result = new ArrayList<>();
+        strings.stream().map(Integer::parseInt).forEach(result::add);
+        return result;
+    }
+
+    @Way
+    public static List<Integer> step3_collect(List<String> strings) {
+        return strings.stream().map(Integer::parseInt).collect(toList());
+    }
 
     @Test
     public void test(Function<List<String>, List<Integer>> f) {
