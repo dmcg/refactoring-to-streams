@@ -25,12 +25,16 @@ public class ExB_Summing {
 
     @Way
     public static int newWay(int[] ints) {
-        return -1;
+        int result = 0;
+        for (Integer i : ints) {
+            result += i;
+        }
+        return result;
     }
 
     @Test
     public void sums_array_elements(ToIntFunction<int[]> f) {
-        assertThat(f.applyAsInt(new int[]{1,2,3,4,5}), equalTo(15));
+        assertThat(f.applyAsInt(new int[]{1, 2, 3, 4, 5}), equalTo(15));
     }
 
     @Test
