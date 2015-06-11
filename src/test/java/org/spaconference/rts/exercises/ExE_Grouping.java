@@ -1,4 +1,4 @@
-package org.spaconference.rts;
+package org.spaconference.rts.exercises;
 
 import com.google.common.collect.ImmutableMap;
 import org.junit.Test;

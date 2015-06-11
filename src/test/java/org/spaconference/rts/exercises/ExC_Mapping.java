@@ -1,4 +1,4 @@
-package org.spaconference.rts;
+package org.spaconference.rts.exercises;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,19 +15,19 @@ import static org.spaconference.rts.runner.ExampleRunner.Way;
 
 
 @RunWith(ExampleRunner.class)
-public class ExB1_Collecting {
+public class ExC_Mapping {
 
     @Way
-    public static List<String> oldWay(Iterable<String> things) {
-        List<String> result = new ArrayList<>();
-        for (String thing : things) {
-            result.add(thing);
+    public static List<Integer> oldWay(List<String> strings) {
+        List<Integer> result = new ArrayList<>();
+        for (String string : strings) {
+            result.add(Integer.parseInt(string));
         }
         return result;
     }
 
     @Test
-    public void test(Function<Iterable<String>, List<String>> f) {
-        assertThat(f.apply(asList("one", "two", "three")), equalTo(asList("one", "two", "three")));
+    public void test(Function<List<String>, List<Integer>> f) {
+        assertThat(f.apply(asList("2", "3", "5", "7")), equalTo(asList(2, 3, 5, 7)));
     }
 }
