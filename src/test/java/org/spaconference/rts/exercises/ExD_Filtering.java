@@ -33,7 +33,6 @@ public class ExD_Filtering {
         return Collections.emptyList();
     }
 
-
     @Test
     public void test(Function<List<Integer>, List<Integer>> f) {
         assertThat(f.apply(asList(1, 2, 3, 4, 5, 6, 7, 8)), equalTo(asList(2, 4, 6, 8)));

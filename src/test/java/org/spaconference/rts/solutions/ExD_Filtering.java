@@ -29,10 +29,23 @@ public class ExD_Filtering {
     }
 
     @Way
-    public static List<Integer> newWay(List<Integer> xs) {
-        return xs.stream().filter(x -> x % 2 == 0).collect(toList());
+    public static List<Integer> step1_stream(List<Integer> xs) {
+        List<Integer> result = new ArrayList<>();
+        xs.stream().forEach(x -> {if (x % 2 == 0) result.add(x);});
+        return result;
     }
 
+    @Way
+    public static List<Integer> step2_filter(List<Integer> xs) {
+        List<Integer> result = new ArrayList<>();
+        xs.stream().filter(x -> x % 2 == 0).forEach(result::add);
+        return result;
+    }
+
+    @Way
+    public static List<Integer> step3_collect(List<Integer> xs) {
+        return xs.stream().filter(x -> x % 2 == 0).collect(toList());
+    }
 
     @Test
     public void test(Function<List<Integer>, List<Integer>> f) {
