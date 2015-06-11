@@ -18,20 +18,41 @@ public class ExB_Summing {
     @Way
     public static int oldWay(int[] ints) {
         int result = 0;
-        for (Integer i : ints) {
+        for (int i : ints) {
             result += i;
         }
         return result;
     }
 
     @Way
-    public static int newWay(int[] ints) {
+    public static int step1_stream(int[] ints) {
+        int result = 0;
+        for (int i : (Iterable<Integer>)IntStream.of(ints)::iterator) {
+            result += i;
+        }
+        return result;
+    }
+
+    @Way
+    public static int step2_forEach(int[] ints) {
+        final int[] result = {0};
+        IntStream.of(ints).forEach(i -> result[0] += i);
+        return result[0];
+    }
+
+    @Way
+    public static int step3_reduce(int[] ints) {
+        return IntStream.of(ints).reduce(0, (i1, i2) -> i1 + i2);
+    }
+
+    @Way
+    public static int step4_sum(int[] ints) {
         return IntStream.of(ints).sum();
     }
 
     @Test
     public void sums_array_elements(ToIntFunction<int[]> f) {
-        assertThat(f.applyAsInt(new int[]{1,2,3,4,5}), equalTo(15));
+        assertThat(f.applyAsInt(new int[]{1, 2, 3, 4, 5}), equalTo(15));
     }
 
     @Test

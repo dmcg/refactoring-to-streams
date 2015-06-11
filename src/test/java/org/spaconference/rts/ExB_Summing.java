@@ -17,16 +17,7 @@ public class ExB_Summing {
     @Way
     public static int oldWay(int[] ints) {
         int result = 0;
-        for (Integer i : ints) {
-            result += i;
-        }
-        return result;
-    }
-
-    @Way
-    public static int newWay(int[] ints) {
-        int result = 0;
-        for (Integer i : ints) {
+        for (int i : ints) {
             result += i;
         }
         return result;
