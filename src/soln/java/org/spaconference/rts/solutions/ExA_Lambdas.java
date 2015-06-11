@@ -1,4 +1,4 @@
-package org.spaconference.rts;
+package org.spaconference.rts.solutions;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +12,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.spaconference.rts.runner.ExampleRunner.Way;
 
 @RunWith(ExampleRunner.class)
-public class ExA1_Lambdas {
+public class ExA_Lambdas {
 
     @Way
     public static Function<String, Integer> anonymousClass() {
@@ -26,22 +26,12 @@ public class ExA1_Lambdas {
 
     @Way
     public static Function<String, Integer> lambda() {
-        return new Function<String, Integer>() {
-            @Override
-            public Integer apply(String s) {
-                return Integer.parseInt(s);
-            }
-        };
+        return s -> Integer.parseInt(s);
     }
 
     @Way
     public static Function<String, Integer> methodReference() {
-        return new Function<String, Integer>() {
-            @Override
-            public Integer apply(String s) {
-                return Integer.parseInt(s);
-            }
-        };
+        return Integer::parseInt;
     }
 
     @Test

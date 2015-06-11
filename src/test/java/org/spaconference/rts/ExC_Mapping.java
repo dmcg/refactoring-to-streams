@@ -5,7 +5,6 @@ import org.junit.runner.RunWith;
 import org.spaconference.rts.runner.ExampleRunner;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 
@@ -26,12 +25,6 @@ public class ExC_Mapping {
         }
         return result;
     }
-
-    @Way
-    public static List<Integer> newWay(List<String> strings) {
-        return Collections.emptyList();
-    }
-
 
     @Test
     public void test(Function<List<String>, List<Integer>> f) {

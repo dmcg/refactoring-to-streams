@@ -15,6 +15,7 @@ import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toSet;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.spaconference.rts.runner.ExampleRunner.Way;
 
 
 @RunWith(ExampleRunner.class)
@@ -42,7 +43,7 @@ public class ExE_Grouping {
     public static Product yFronts = new Product("y-fronts", "pants");
     public static Product boxers = new Product("boxers", "dogs");
 
-    @ExampleRunner.Way
+    @Way
     public static Map<String,Set<Product>> oldWay(List<Product> products) {
         SortedMap<String, Set<Product>> categories = new TreeMap<>();
 
@@ -51,7 +52,7 @@ public class ExE_Grouping {
                 categories.get(p.category).add(p);
             }
             else {
-                Set<Product> categoryProducts= new HashSet<>();
+                Set<Product> categoryProducts = new HashSet<>();
                 categoryProducts.add(p);
                 categories.put(p.category, categoryProducts);
             }
@@ -60,7 +61,7 @@ public class ExE_Grouping {
         return categories;
     }
 
-    @ExampleRunner.Way
+    @Way
     public static Map<String,Set<Product>> newWay(List<Product> products) {
         return products.stream().collect(groupingBy(p -> p.category, toSet()));
     }
