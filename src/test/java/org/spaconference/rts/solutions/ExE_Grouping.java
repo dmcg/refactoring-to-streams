@@ -43,6 +43,7 @@ public class ExE_Grouping {
     public static Product yFronts = new Product("y-fronts", "pants");
     public static Product boxers = new Product("boxers", "dogs");
 
+
     @Way
     public static Map<String,Set<Product>> oldWay(List<Product> products) {
         SortedMap<String, Set<Product>> categories = new TreeMap<>();
