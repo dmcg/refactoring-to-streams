@@ -28,11 +28,6 @@ public class ExG_FlatMapping {
         return ints;
     }
 
-    @Way
-    public static List<Integer> newWay(int max) {
-        return new ArrayList<>();
-    }
-
     @Test
     public void counting_to_one(IntFunction<List<Integer>> f) {
         assertThat(f.apply(1), equalTo(asList(

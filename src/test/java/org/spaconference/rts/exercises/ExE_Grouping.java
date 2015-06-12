@@ -59,12 +59,6 @@ public class ExE_Grouping {
         return categories;
     }
 
-    @Way
-    public static Map<String,Set<Product>> newWay(List<Product> products) {
-        return new HashMap<>();
-    }
-
-
     @Test
     public void test(Function<List<Product>,Map<String,Set<Product>>> f) {
         List<Product> products = asList(

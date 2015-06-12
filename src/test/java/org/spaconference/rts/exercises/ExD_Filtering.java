@@ -5,7 +5,6 @@ import org.junit.runner.RunWith;
 import org.spaconference.rts.runner.ExampleRunner;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 
@@ -26,11 +25,6 @@ public class ExD_Filtering {
                 result.add(x);
         }
         return result;
-    }
-
-    @Way
-    public static List<Integer> newWay(List<Integer> xs) {
-        return Collections.emptyList();
     }
 
     @Test
