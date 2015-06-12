@@ -18,7 +18,7 @@ import static org.spaconference.rts.runner.ExampleRunner.Way;
 
 
 @RunWith(ExampleRunner.class)
-public class ExD_Generator {
+public class ExX_Generator {
 
     @Way
     public static List<Integer> oldWay(int count) {
