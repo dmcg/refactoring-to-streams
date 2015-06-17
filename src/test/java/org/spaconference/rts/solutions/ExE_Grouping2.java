@@ -43,7 +43,7 @@ public class ExE_Grouping2 {
 
     @Way
     public static Map<Integer, List<Integer>> newWay(int max) {
-        return Collections.emptyMap();
+        return IntStream.range(2,max).boxed().collect(groupingBy(ExE_Grouping2::smallestDivisor));
     }
 
     @Test
@@ -56,23 +56,18 @@ public class ExE_Grouping2 {
     }
 
     @Test
-    public void test_to_50(IntFunction<Map<Integer, List<Integer>>> f) {
-        assertThat(f.apply(50), equalTo(ImmutableMap.builder()
-                .put(2, asList(2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48))
-                .put(3, asList(3, 9, 15, 21, 27, 33, 39, 45))
-                .put(5, asList(5, 25, 35))
-                .put(7, asList(7, 49))
+    public void test_to_30(IntFunction<Map<Integer, List<Integer>>> f) {
+        assertThat(f.apply(30), equalTo(ImmutableMap.builder()
+                .put(2, asList(2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28))
+                .put(3, asList(3, 9, 15, 21, 27))
+                .put(5, asList(5, 25))
+                .put(7, asList(7))
                 .put(11, asList(11))
                 .put(13, asList(13))
                 .put(17, asList(17))
                 .put(19, asList(19))
                 .put(23, asList(23))
                 .put(29, asList(29))
-                .put(31, asList(31))
-                .put(37, asList(37))
-                .put(41, asList(41))
-                .put(43, asList(43))
-                .put(47, asList(47))
                 .build()));
     }
 
