@@ -8,7 +8,6 @@ import java.lang.annotation.*;
 import java.lang.invoke.MethodHandleProxies;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
-import java.util.AbstractMap.SimpleImmutableEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -66,10 +65,6 @@ public class ExampleRunner extends BlockJUnit4ClassRunner {
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private <K,V> Entry<K,V> mapEntry(K key, V value) {
-        return new SimpleImmutableEntry<K, V>(key, value);
     }
 
     private class TestMethodWithParams extends FrameworkMethod {
