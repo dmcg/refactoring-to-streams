@@ -13,10 +13,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.stream.Collectors;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
+import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toMap;
 
 public class ExampleRunner2 extends BlockJUnit4ClassRunner {
 
@@ -51,9 +53,12 @@ public class ExampleRunner2 extends BlockJUnit4ClassRunner {
     private Map<Method, Object[]> annotatedMethodsAsFunctions(Class<?> donorClass, Class<?> interfaceClass, Class<? extends Annotation> annotationClass) {
         MethodHandles.Lookup lookup = MethodHandles.lookup();
         return Arrays.stream(donorClass.getDeclaredMethods())
-                .filter(m -> m.getDeclaredAnnotation(annotationClass) != null)
-                .map(m -> mapEntry(m, new Object[]{functionFor(m, interfaceClass, lookup)}))
-                .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
+                .filter(hasAnnotation(annotationClass))
+                .collect(toMap(identity(), method -> new Object[]{functionFor(method, interfaceClass, lookup)}));
+    }
+
+    private Predicate<Method> hasAnnotation(Class<? extends Annotation> annotationClass) {
+        return method -> method.getDeclaredAnnotation(annotationClass) != null;
     }
 
     private <T> T functionFor(Method method, Class<? extends T> interfaceClass, MethodHandles.Lookup lookup) {
