@@ -20,14 +20,14 @@ import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 
-public class ExampleRunner2 extends BlockJUnit4ClassRunner {
+public class ExampleRunner extends BlockJUnit4ClassRunner {
 
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.METHOD})
     public static @interface Way {
     }
 
-    public ExampleRunner2(Class<?> klass) throws InitializationError {
+    public ExampleRunner(Class<?> klass) throws InitializationError {
         super(klass);
     }
 
