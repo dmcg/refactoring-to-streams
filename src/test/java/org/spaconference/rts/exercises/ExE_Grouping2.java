@@ -1,4 +1,4 @@
-package org.spaconference.rts.solutions;
+package org.spaconference.rts.exercises;
 
 import com.google.common.collect.ImmutableMap;
 import org.junit.Test;
@@ -6,14 +6,12 @@ import org.junit.runner.RunWith;
 import org.spaconference.rts.runner.ExampleRunner;
 
 import java.util.*;
-import java.util.function.Function;
 import java.util.function.IntFunction;
 import java.util.stream.IntStream;
 
 import static java.lang.Math.floor;
 import static java.lang.Math.sqrt;
 import static java.util.Arrays.asList;
-import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
