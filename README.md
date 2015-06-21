@@ -7,7 +7,7 @@ Things to cover
 * [x] Parallelising
 * [x] Filtering
 * [x] Mapping
-* [ ] Reducing
+* [x] Reducing
 * [x] Collecting
 * [x] Partitioning and grouping
 * [x] Generators (infinite streams, streams evaluate lazily)
@@ -15,4 +15,4 @@ Things to cover
 * [x] Flatmap
 * [x] Null vs Optional<T>
 * [x] ForEach
-* [ ] Error handling and exceptions 
+* [x] Error handling and exceptions 
