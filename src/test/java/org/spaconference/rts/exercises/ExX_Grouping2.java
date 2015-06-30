@@ -1,4 +1,4 @@
-package org.spaconference.rts.solutions;
+package org.spaconference.rts.exercises;
 
 import com.google.common.collect.ImmutableMap;
 import org.junit.Test;
@@ -12,14 +12,14 @@ import java.util.stream.IntStream;
 import static java.lang.Math.floor;
 import static java.lang.Math.sqrt;
 import static java.util.Arrays.asList;
-import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.toList;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.spaconference.rts.runner.ExampleRunner.Way;
 
 
 @RunWith(ExampleRunner.class)
-public class ExE_Grouping2 {
+public class ExX_Grouping2 {
     @Way
     public static Map<Integer, List<Integer>> oldWay(int max) {
         SortedMap<Integer, List<Integer>> multiples = new TreeMap<>();
@@ -37,11 +37,6 @@ public class ExE_Grouping2 {
         }
 
         return multiples;
-    }
-
-    @Way
-    public static Map<Integer, List<Integer>> newWay(int max) {
-        return IntStream.range(2,max).boxed().collect(groupingBy(ExE_Grouping2::smallestDivisor));
     }
 
     @Test
@@ -67,6 +62,10 @@ public class ExE_Grouping2 {
                 .put(23, asList(23))
                 .put(29, asList(29))
                 .build()));
+    }
+
+    private static List<Integer> rangeAsList(final int from, final int to) {
+        return IntStream.range(from, to).boxed().collect(toList());
     }
 
     static int smallestDivisor(int n) {

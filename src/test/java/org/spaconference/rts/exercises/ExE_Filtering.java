@@ -15,19 +15,21 @@ import static org.spaconference.rts.runner.ExampleRunner.Way;
 
 
 @RunWith(ExampleRunner.class)
-public class ExB1_Collecting {
+public class ExE_Filtering {
 
     @Way
-    public static List<String> oldWay(Iterable<String> things) {
-        List<String> result = new ArrayList<>();
-        for (String thing : things) {
-            result.add(thing);
+    public static List<Integer> oldWay(List<Integer> xs) {
+        List<Integer> result = new ArrayList<>();
+        for (int x : xs) {
+            if (x % 2 == 0)
+                result.add(x);
         }
         return result;
     }
 
     @Test
-    public void test(Function<Iterable<String>, List<String>> f) {
-        assertThat(f.apply(asList("one", "two", "three")), equalTo(asList("one", "two", "three")));
+    public void test(Function<List<Integer>, List<Integer>> f) {
+        assertThat(f.apply(asList(1, 2, 3, 4, 5, 6, 7, 8)), equalTo(asList(2, 4, 6, 8)));
     }
+
 }

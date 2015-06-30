@@ -13,7 +13,7 @@ import static org.spaconference.rts.runner.ExampleRunner.Way;
 
 
 @RunWith(ExampleRunner.class)
-public class ExB_SummingRange {
+public class ExI_SummingRange {
 
     @Way
     public static long oldWay(long limit) {

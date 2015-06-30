@@ -1,4 +1,4 @@
-package org.spaconference.rts.exercises;
+package org.spaconference.rts.solutions;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,17 +8,17 @@ import org.spaconference.rts.runner.ExampleRunner.Way;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.IntFunction;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
+import static java.util.stream.Collectors.toList;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 
 @RunWith(ExampleRunner.class)
-public class ExG_FlatMapping {
+public class ExJ_FlatMapping {
     @Way
     public static List<Integer> oldWay(int max) {
         List<Integer> ints = new ArrayList<>();
@@ -30,11 +30,10 @@ public class ExG_FlatMapping {
         return ints;
     }
 
-
     @Way
     public static List<Integer> newWay(int max) {
-        return IntStream.rangeClosed(1, max).flatMap(i ->
-                IntStream.rangeClosed(1, i)).boxed().collect(Collectors.toList());
+        return IntStream.range(1,max+1).flatMap(i->IntStream.range(1,i+1))
+                .boxed().collect(toList());
     }
 
     @Test
@@ -54,9 +53,9 @@ public class ExG_FlatMapping {
     public void counting_to_four(IntFunction<List<Integer>> f) {
         assertThat(f.apply(4), equalTo(asList(
                 1,
-                1, 2,
-                1, 2, 3,
-                1, 2, 3, 4)));
+                1,2,
+                1,2,3,
+                1,2,3,4)));
     }
 
     @Test

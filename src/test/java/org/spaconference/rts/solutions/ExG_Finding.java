@@ -17,7 +17,7 @@ import static org.spaconference.rts.runner.ExampleRunner.Way;
 
 
 @RunWith(ExampleRunner.class)
-public class ExF_Finding {
+public class ExG_Finding {
 
     @Way
     public static String oldWay(List<String> strings, Predicate<? super String> criteria) {

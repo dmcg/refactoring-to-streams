@@ -1,4 +1,4 @@
-package org.spaconference.rts.exercises;
+package org.spaconference.rts.solutions;
 
 import com.google.common.collect.ImmutableMap;
 import org.junit.Test;
@@ -11,13 +11,15 @@ import java.util.function.Function;
 import static com.google.common.collect.Sets.newHashSet;
 import static java.util.Arrays.asList;
 import static java.util.Collections.shuffle;
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.toSet;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.spaconference.rts.runner.ExampleRunner.Way;
 
 
 @RunWith(ExampleRunner.class)
-public class ExE_Grouping {
+public class ExF_Grouping {
     static class Product {
         public final String name;
         public final String category;
@@ -41,6 +43,7 @@ public class ExE_Grouping {
     public static Product yFronts = new Product("y-fronts", "pants");
     public static Product boxers = new Product("boxers", "dogs");
 
+
     @Way
     public static Map<String,Set<Product>> oldWay(List<Product> products) {
         SortedMap<String, Set<Product>> categories = new TreeMap<>();
@@ -50,13 +53,18 @@ public class ExE_Grouping {
                 categories.get(p.category).add(p);
             }
             else {
-                Set<Product> categoryProducts= new HashSet<>();
+                Set<Product> categoryProducts = new HashSet<>();
                 categoryProducts.add(p);
                 categories.put(p.category, categoryProducts);
             }
         }
 
         return categories;
+    }
+
+    @Way
+    public static Map<String,Set<Product>> newWay(List<Product> products) {
+        return products.stream().collect(groupingBy(p -> p.category, toSet()));
     }
 
     @Test

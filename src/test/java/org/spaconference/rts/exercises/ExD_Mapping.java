@@ -15,7 +15,7 @@ import static org.spaconference.rts.runner.ExampleRunner.Way;
 
 
 @RunWith(ExampleRunner.class)
-public class ExC_Mapping {
+public class ExD_Mapping {
 
     @Way
     public static List<Integer> oldWay(List<String> strings) {

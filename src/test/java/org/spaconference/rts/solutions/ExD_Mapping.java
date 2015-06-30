@@ -16,40 +16,39 @@ import static org.spaconference.rts.runner.ExampleRunner.Way;
 
 
 @RunWith(ExampleRunner.class)
-public class ExD_Filtering {
+public class ExD_Mapping {
 
     @Way
-    public static List<Integer> oldWay(List<Integer> xs) {
+    public static List<Integer> oldWay(List<String> strings) {
         List<Integer> result = new ArrayList<>();
-        for (int x : xs) {
-            if (x % 2 == 0)
-                result.add(x);
+        for (String string : strings) {
+            result.add(Integer.parseInt(string));
         }
         return result;
     }
 
     @Way
-    public static List<Integer> step1_stream(List<Integer> xs) {
+    public static List<Integer> step1_stream(List<String> strings) {
         List<Integer> result = new ArrayList<>();
-        xs.stream().forEach(x -> {if (x % 2 == 0) result.add(x);});
+        strings.stream().forEach(s -> result.add(Integer.parseInt(s)));
         return result;
     }
 
     @Way
-    public static List<Integer> step2_filter(List<Integer> xs) {
+    public static List<Integer> step2_map(List<String> strings) {
         List<Integer> result = new ArrayList<>();
-        xs.stream().filter(x -> x % 2 == 0).forEach(result::add);
+        strings.stream().map(Integer::parseInt).forEach(result::add);
         return result;
     }
 
     @Way
-    public static List<Integer> step3_collect(List<Integer> xs) {
-        return xs.stream().filter(x -> x % 2 == 0).collect(toList());
+    public static List<Integer> step3_collect(List<String> strings) {
+        return strings.stream().map(Integer::parseInt).collect(toList());
     }
 
     @Test
-    public void test(Function<List<Integer>, List<Integer>> f) {
-        assertThat(f.apply(asList(1, 2, 3, 4, 5, 6, 7, 8)), equalTo(asList(2, 4, 6, 8)));
+    public void test(Function<List<String>, List<Integer>> f) {
+        assertThat(f.apply(asList("2", "3", "5", "7")), equalTo(asList(2, 3, 5, 7)));
     }
-
 }
+

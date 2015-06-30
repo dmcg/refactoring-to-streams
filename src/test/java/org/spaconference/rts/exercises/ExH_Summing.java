@@ -12,7 +12,7 @@ import static org.spaconference.rts.runner.ExampleRunner.Way;
 
 
 @RunWith(ExampleRunner.class)
-public class ExB_Summing {
+public class ExH_Summing {
 
     @Way
     public static int oldWay(int[] ints) {
