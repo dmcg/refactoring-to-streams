@@ -30,13 +30,6 @@ public class ExJ_FlatMapping {
         return ints;
     }
 
-
-    @Way
-    public static List<Integer> newWay(int max) {
-        return IntStream.rangeClosed(1, max).flatMap(i ->
-                IntStream.rangeClosed(1, i)).boxed().collect(Collectors.toList());
-    }
-
     @Test
     public void counting_to_one(IntFunction<List<Integer>> f) {
         assertThat(f.apply(1), equalTo(asList(
