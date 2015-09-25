@@ -11,3 +11,7 @@ Convert back to an iterable:
 
  * Iterable<T> t = streamOfT::iterator
 
+Create a collector:
+
+ * static factory method defined in Collectors. 
+ 
