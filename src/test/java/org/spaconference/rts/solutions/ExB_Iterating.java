@@ -58,6 +58,6 @@ public class ExB_Iterating {
     }
 
     public interface Thing {
-        public void call(Iterable<String> things, PrintWriter writer);
+        void call(Iterable<String> things, PrintWriter writer);
     }
 }
