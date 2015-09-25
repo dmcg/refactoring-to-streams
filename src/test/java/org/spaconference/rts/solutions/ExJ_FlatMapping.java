@@ -53,9 +53,9 @@ public class ExJ_FlatMapping {
     public void counting_to_four(IntFunction<List<Integer>> f) {
         assertThat(f.apply(4), equalTo(asList(
                 1,
-                1,2,
-                1,2,3,
-                1,2,3,4)));
+                1, 2,
+                1, 2, 3,
+                1, 2, 3, 4)));
     }
 
     @Test
