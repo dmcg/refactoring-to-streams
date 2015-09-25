@@ -51,4 +51,3 @@ public class ExD_Mapping {
         assertThat(f.apply(asList("2", "3", "5", "7")), equalTo(asList(2, 3, 5, 7)));
     }
 }
-

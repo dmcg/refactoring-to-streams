@@ -40,7 +40,6 @@ public class ExC_Collecting {
         return StreamSupport.stream(things.spliterator(), false).collect(Collectors.toList());
     }
 
-
     @Test
     public void test(Function<Iterable<String>, List<String>> f) {
         assertThat(f.apply(asList("one", "two", "three")), equalTo(asList("one", "two", "three")));
