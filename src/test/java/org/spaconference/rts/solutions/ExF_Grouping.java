@@ -5,7 +5,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.spaconference.rts.runner.ExampleRunner;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import java.util.function.Function;
 
 import static java.util.Arrays.asList;
@@ -39,7 +44,6 @@ public class ExF_Grouping {
     public static Product duncesCap = new Product("dunce's cap", "hats");
     public static Product yFronts = new Product("y-fronts", "pants");
     public static Product boxers = new Product("boxers", "dogs");
-
 
     @Way
     public static Map<String,List<Product>> oldWay(List<Product> products) {

@@ -8,8 +8,6 @@ import org.spaconference.rts.runner.ExampleRunner.Way;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.IntFunction;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
