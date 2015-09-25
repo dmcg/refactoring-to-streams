@@ -39,7 +39,11 @@ Work through the exercises in `exercises` (`src/test/.../rts/exercises/Ex*.java`
 The `solutions` source tree (`src/test/.../rts/solutions/Ex*.java`) gives our suggestions.
 
 There is one failing test where new code has to be written. All other exercises contain
-working code, which is just written without making use of streams and lambda expressions.
+working code, which is written without making use of streams and lambda expressions.
+Often there is more than one way to rewrite the code using the new language features. 
+In this case just add more methods containing the alternative ways and mark them with
+`@Way`. (That is the rationale behind naming the marker annotation `@Way` because it
+shows different ways to do things.)
 
 The `ExampleRunner`'s (`src/test/.../rts/runner/ExampleRunner.java`) job is to collect the 
 methods marked `@Way` and create a test for each by feeding the returned function to all the 
