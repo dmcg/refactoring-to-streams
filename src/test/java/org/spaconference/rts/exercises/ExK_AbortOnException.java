@@ -18,7 +18,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ExK_AbortOnException {
 
     @Way
-    public static List<URL> old_way(List<String> strings) throws MalformedURLException {
+    public static List<URL> oldWay(List<String> strings) throws MalformedURLException {
         List<URL> uris = new ArrayList<>();
         for (String string : strings) {
             uris.add(new URL(string));

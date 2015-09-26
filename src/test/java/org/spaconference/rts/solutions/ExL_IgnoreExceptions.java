@@ -22,7 +22,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ExL_IgnoreExceptions {
 
     @Way
-    public static List<URL> old_way(List<String> strings) {
+    public static List<URL> oldWay(List<String> strings) {
         List<URL> uris = new ArrayList<>();
         for (String string : strings) {
             try {
