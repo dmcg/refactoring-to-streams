@@ -32,7 +32,7 @@ public class ExJ_FlatMapping {
 
     @Way
     public static List<Integer> newWay(int max) {
-        return IntStream.range(1,max+1).flatMap(i->IntStream.range(1,i+1))
+        return IntStream.range(1, max + 1).flatMap(i -> IntStream.range(1, i + 1))
                 .boxed().collect(toList());
     }
 

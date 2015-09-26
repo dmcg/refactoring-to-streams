@@ -27,7 +27,7 @@ public class ExH_Summing {
     @Way
     public static int step1_stream(int[] ints) {
         int result = 0;
-        for (int i : (Iterable<Integer>)IntStream.of(ints)::iterator) {
+        for (int i : (Iterable<Integer>) IntStream.of(ints)::iterator) {
             result += i;
         }
         return result;

@@ -30,7 +30,7 @@ public class ExK_AbortOnException {
     @Way
     public static List<URL> step_1_stream(List<String> strings) throws MalformedURLException {
         List<URL> uris = new ArrayList<>();
-        for (String string : (Iterable<String>)strings.stream()::iterator) {
+        for (String string : (Iterable<String>) strings.stream()::iterator) {
             uris.add(new URL(string));
         }
         return uris;

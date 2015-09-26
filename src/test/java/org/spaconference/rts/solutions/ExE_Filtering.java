@@ -31,7 +31,9 @@ public class ExE_Filtering {
     @Way
     public static List<Integer> step1_stream(List<Integer> xs) {
         List<Integer> result = new ArrayList<>();
-        xs.stream().forEach(x -> {if (x % 2 == 0) result.add(x);});
+        xs.stream().forEach(x -> {
+            if (x % 2 == 0) result.add(x);
+        });
         return result;
     }
 

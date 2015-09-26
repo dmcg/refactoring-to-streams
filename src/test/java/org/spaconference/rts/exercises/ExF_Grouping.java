@@ -45,14 +45,13 @@ public class ExF_Grouping {
     public static Product boxers = new Product("boxers", "dogs");
 
     @Way
-    public static Map<String,List<Product>> oldWay(List<Product> products) {
+    public static Map<String, List<Product>> oldWay(List<Product> products) {
         SortedMap<String, List<Product>> categories = new TreeMap<>();
 
         for (Product p : products) {
             if (categories.containsKey(p.category)) {
                 categories.get(p.category).add(p);
-            }
-            else {
+            } else {
                 List<Product> categoryProducts = new ArrayList<>();
                 categoryProducts.add(p);
                 categories.put(p.category, categoryProducts);
@@ -63,14 +62,14 @@ public class ExF_Grouping {
     }
 
     @Test
-    public void test(Function<List<Product>,Map<String,Set<Product>>> f) {
+    public void test(Function<List<Product>, Map<String, Set<Product>>> f) {
         List<Product> products = asList(
                 winklePickers, bovverBoots, fez, deerstalker, duncesCap, yFronts, boxers);
 
         // Bonus exercise - uncomment this line and group into sets
         //java.util.Collections.shuffle(products);
 
-        Map<String,List<Product>> categorised = ImmutableMap.of(
+        Map<String, List<Product>> categorised = ImmutableMap.of(
                 "shoes", asList(winklePickers, bovverBoots),
                 "hats", asList(fez, deerstalker, duncesCap),
                 "pants", asList(yFronts),

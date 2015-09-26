@@ -28,27 +28,27 @@ public class ExG_Finding {
     }
 
     @Test
-    public void finds_item_when_first_in_list(BiFunction<List<String>,Predicate<? super String>,String> f) {
+    public void finds_item_when_first_in_list(BiFunction<List<String>, Predicate<? super String>, String> f) {
         assertThat(f.apply(asList("one", "two", "three"), s -> s.startsWith("o")), equalTo("one"));
     }
 
     @Test
-    public void finds_first_item_when_many_in_list(BiFunction<List<String>,Predicate<? super String>,String> f) {
+    public void finds_first_item_when_many_in_list(BiFunction<List<String>, Predicate<? super String>, String> f) {
         assertThat(f.apply(asList("one", "two", "three"), s -> s.startsWith("t")), equalTo("two"));
     }
 
     @Test
-    public void returns_null_if_nothing_found(BiFunction<List<String>,Predicate<? super String>,String> f) {
+    public void returns_null_if_nothing_found(BiFunction<List<String>, Predicate<? super String>, String> f) {
         assertThat(f.apply(asList("one", "two", "three"), s -> s.startsWith("f")), nullValue());
     }
 
     @Test
-    public void returns_null_on_empty_list(BiFunction<List<String>,Predicate<? super String>,String> f) {
+    public void returns_null_on_empty_list(BiFunction<List<String>, Predicate<? super String>, String> f) {
         assertThat(f.apply(asList(), s -> s.startsWith("f")), nullValue());
     }
 
     @Test
-    public void doesnt_evaluate_predicate_after_match_found(BiFunction<List<String>,Predicate<? super String>,String> f) {
+    public void doesnt_evaluate_predicate_after_match_found(BiFunction<List<String>, Predicate<? super String>, String> f) {
         assertThat(f.apply(asList("one", null), s -> s.startsWith("o")), equalTo("one"));
     }
 
