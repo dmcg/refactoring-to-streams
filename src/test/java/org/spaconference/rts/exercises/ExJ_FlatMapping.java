@@ -17,6 +17,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(ExampleRunner.class)
 public class ExJ_FlatMapping {
+
     @Way
     public static List<Integer> oldWay(int max) {
         List<Integer> ints = new ArrayList<>();

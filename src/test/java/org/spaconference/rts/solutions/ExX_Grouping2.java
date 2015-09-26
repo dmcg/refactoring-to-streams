@@ -25,6 +25,7 @@ import static org.spaconference.rts.runner.ExampleRunner.Way;
 
 @RunWith(ExampleRunner.class)
 public class ExX_Grouping2 {
+
     @Way
     public static Map<Integer, List<Integer>> oldWay(int max) {
         SortedMap<Integer, List<Integer>> multiples = new TreeMap<>();

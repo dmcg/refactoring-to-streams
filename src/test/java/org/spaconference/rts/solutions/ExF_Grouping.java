@@ -22,6 +22,7 @@ import static org.spaconference.rts.runner.ExampleRunner.Way;
 
 @RunWith(ExampleRunner.class)
 public class ExF_Grouping {
+
     static class Product {
         public final String name;
         public final String category;
