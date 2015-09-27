@@ -52,8 +52,8 @@ an individual test in IntelliJ, but that seems to be true for `@Theory`'s as wel
 
 The final exercise is to refactor the `ExampleRunner` itself - our solution of that is also given.
 
-If you want to run the workshop, just get in touch with Duncan.
-
 ### License
 
 tbd with Duncan.
+
+If you want to run the workshop, just get in touch with Duncan.
