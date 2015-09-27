@@ -15,6 +15,13 @@ In this exercises we look at how to refactor imperative code to take advantage o
 this style. We'll start by removing for loops and work our way through mapping and 
 reducing to advanced parallelism.
 
+### Refactoring Workflow
+
+The general workflow while refactoring towards Streams and lambda expressions is like that:
+Start by replacing the `Iterable` in the extended for loop with a `Stream`. Then use `forEach` to
+execute the loop body. Use other functions like `map` or `filter` to remove chunks of code from 
+the loop body in small steps. Finally use a `Collector` to collect the result of the stream.
+
 ## Things to cover
 
 * [x] Converting mutation-and-for-loops
