@@ -47,7 +47,7 @@ public class ExL_IgnoreExceptions {
     }
 
     @Way
-    public static List<URL> step_2_forEach(List<String> strings) {
+    public static List<URL> step_2_flatmap(List<String> strings) {
         return strings.stream().flatMap(string -> {
             try {
                 return Stream.of(new URL(string));
@@ -58,23 +58,12 @@ public class ExL_IgnoreExceptions {
     }
 
     @Way
-    public static List<URL> step_3_flatmap(List<String> strings) {
-        return strings.stream().flatMap(string -> {
-            try {
-                return Stream.of(new URL(string));
-            } catch (MalformedURLException ignored) {
-                return Stream.empty();
-            }
-        }).collect(toList());
-    }
-
-    @Way
-    public static List<URL> step_4_guarded(List<String> strings) {
+    public static List<URL> step_3_guarded(List<String> strings) {
         return strings.stream().flatMap(guarded(URL::new)).collect(toList());
     }
 
     @Way
-    public static List<URL> step_4a_Optional_and_filter(List<String> strings) {
+    public static List<URL> step_3a_Optional_and_filter(List<String> strings) {
         return strings.stream().map(string -> {
             try {
                 return Optional.of(new URL(string));
