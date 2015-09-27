@@ -17,7 +17,7 @@ reducing to advanced parallelism.
 
 ## Things to cover
 
-* [x] Converting mutation-and-for-loops and Guava iterables
+* [x] Converting mutation-and-for-loops
 * [x] Performance
 * [x] Parallelising
 * [x] Filtering
