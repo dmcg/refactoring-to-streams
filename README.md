@@ -24,7 +24,7 @@ the loop body in small steps. Finally use a `Collector` to collect the result of
 
 ## Things to cover
 
-* [x] Converting mutation-and-for-loops
+* [x] Converting mutation-and-for-loops and Guava iterables
 * [x] Performance
 * [x] Parallelising
 * [x] Filtering
