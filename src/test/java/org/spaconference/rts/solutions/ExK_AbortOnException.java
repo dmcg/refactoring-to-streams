@@ -15,11 +15,12 @@ import static java.util.stream.Collectors.toList;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+
 @RunWith(ExampleRunner.class)
 public class ExK_AbortOnException {
 
     @Way
-    public static List<URL> old_way(List<String> strings) throws MalformedURLException {
+    public static List<URL> oldWay(List<String> strings) throws MalformedURLException {
         List<URL> uris = new ArrayList<>();
         for (String string : strings) {
             uris.add(new URL(string));
@@ -30,7 +31,7 @@ public class ExK_AbortOnException {
     @Way
     public static List<URL> step_1_stream(List<String> strings) throws MalformedURLException {
         List<URL> uris = new ArrayList<>();
-        for (String string : (Iterable<String>)strings.stream()::iterator) {
+        for (String string : (Iterable<String>) strings.stream()::iterator) {
             uris.add(new URL(string));
         }
         return uris;

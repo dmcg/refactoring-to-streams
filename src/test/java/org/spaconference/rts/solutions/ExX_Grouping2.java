@@ -5,7 +5,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.spaconference.rts.runner.ExampleRunner;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import java.util.function.IntFunction;
 import java.util.stream.IntStream;
 
@@ -13,6 +17,7 @@ import static java.lang.Math.floor;
 import static java.lang.Math.sqrt;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.toList;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.spaconference.rts.runner.ExampleRunner.Way;
@@ -20,6 +25,7 @@ import static org.spaconference.rts.runner.ExampleRunner.Way;
 
 @RunWith(ExampleRunner.class)
 public class ExX_Grouping2 {
+
     @Way
     public static Map<Integer, List<Integer>> oldWay(int max) {
         SortedMap<Integer, List<Integer>> multiples = new TreeMap<>();
@@ -41,7 +47,7 @@ public class ExX_Grouping2 {
 
     @Way
     public static Map<Integer, List<Integer>> newWay(int max) {
-        return IntStream.range(2,max).boxed().collect(groupingBy(ExX_Grouping2::smallestDivisor));
+        return IntStream.range(2, max).boxed().collect(groupingBy(ExX_Grouping2::smallestDivisor));
     }
 
     @Test
@@ -67,6 +73,10 @@ public class ExX_Grouping2 {
                 .put(23, asList(23))
                 .put(29, asList(29))
                 .build()));
+    }
+
+    private static List<Integer> rangeAsList(final int from, final int to) {
+        return IntStream.range(from, to).boxed().collect(toList());
     }
 
     static int smallestDivisor(int n) {

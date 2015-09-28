@@ -41,7 +41,7 @@ public class ExM_Generator {
     }
 
     public static IntSupplier fibonacciSupplier(int initial1, int initial2) {
-        return () -> 0;
+        throw new UnsupportedOperationException("need to implement this IntSupplier");
     }
 
     @Test

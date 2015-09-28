@@ -19,6 +19,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(ExampleRunner.class)
 public class ExJ_FlatMapping {
+
     @Way
     public static List<Integer> oldWay(int max) {
         List<Integer> ints = new ArrayList<>();
@@ -32,7 +33,7 @@ public class ExJ_FlatMapping {
 
     @Way
     public static List<Integer> newWay(int max) {
-        return IntStream.range(1,max+1).flatMap(i->IntStream.range(1,i+1))
+        return IntStream.range(1, max + 1).flatMap(i -> IntStream.range(1, i + 1))
                 .boxed().collect(toList());
     }
 
@@ -53,9 +54,9 @@ public class ExJ_FlatMapping {
     public void counting_to_four(IntFunction<List<Integer>> f) {
         assertThat(f.apply(4), equalTo(asList(
                 1,
-                1,2,
-                1,2,3,
-                1,2,3,4)));
+                1, 2,
+                1, 2, 3,
+                1, 2, 3, 4)));
     }
 
     @Test

@@ -18,11 +18,12 @@ import static java.util.stream.Collectors.toList;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+
 @RunWith(ExampleRunner.class)
 public class ExL_IgnoreExceptions {
 
     @Way
-    public static List<URL> old_way(List<String> strings) {
+    public static List<URL> oldWay(List<String> strings) {
         List<URL> uris = new ArrayList<>();
         for (String string : strings) {
             try {
@@ -46,7 +47,7 @@ public class ExL_IgnoreExceptions {
     }
 
     @Way
-    public static List<URL> step_2_forEach(List<String> strings) {
+    public static List<URL> step_2_flatmap(List<String> strings) {
         return strings.stream().flatMap(string -> {
             try {
                 return Stream.of(new URL(string));
@@ -57,23 +58,12 @@ public class ExL_IgnoreExceptions {
     }
 
     @Way
-    public static List<URL> step_3_flatmap(List<String> strings) {
-        return strings.stream().flatMap(string -> {
-            try {
-                return Stream.of(new URL(string));
-            } catch (MalformedURLException ignored) {
-                return Stream.empty();
-            }
-        }).collect(toList());
-    }
-
-    @Way
-    public static List<URL> step_4_guarded(List<String> strings) {
+    public static List<URL> step_3_guarded(List<String> strings) {
         return strings.stream().flatMap(guarded(URL::new)).collect(toList());
     }
 
     @Way
-    public static List<URL> step_4a_Optional_and_filter(List<String> strings) {
+    public static List<URL> step_3a_Optional_and_filter(List<String> strings) {
         return strings.stream().map(string -> {
             try {
                 return Optional.of(new URL(string));

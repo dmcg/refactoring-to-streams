@@ -20,11 +20,12 @@ import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 
+
 public class ExampleRunner extends BlockJUnit4ClassRunner {
 
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.METHOD})
-    public static @interface Way {
+    public @interface Way {
     }
 
     public ExampleRunner(Class<?> klass) throws InitializationError {

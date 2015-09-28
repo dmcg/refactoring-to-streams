@@ -5,7 +5,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.spaconference.rts.runner.ExampleRunner;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import java.util.function.IntFunction;
 import java.util.stream.IntStream;
 
@@ -20,6 +24,7 @@ import static org.spaconference.rts.runner.ExampleRunner.Way;
 
 @RunWith(ExampleRunner.class)
 public class ExX_Grouping2 {
+
     @Way
     public static Map<Integer, List<Integer>> oldWay(int max) {
         SortedMap<Integer, List<Integer>> multiples = new TreeMap<>();
