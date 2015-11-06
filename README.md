@@ -21,6 +21,8 @@ The general workflow while refactoring towards Streams and lambda expressions is
 Start by replacing the `Iterable` in the extended for loop with a `Stream`. Then use `forEach` to
 execute the loop body. Use other functions like `map` or `filter` to remove chunks of code from 
 the loop body in small steps. Finally use a `Collector` to collect the result of the stream.
+See [Refactoring with Loops and Collection Pipelines](http://martinfowler.com/articles/refactoring-pipelines.html)
+by Martin Fowler for several detailed examples of these refactoring steps.
 
 ## Things to cover
 
@@ -39,8 +41,15 @@ the loop body in small steps. Finally use a `Collector` to collect the result of
 * [x] ForEach
 * [x] Error handling and exceptions 
 
-## Notes on Running the Workshop 
+## Notes on Running the Workshop
 This is a 150 minute workshop, 10 minutes intro, 2 hours of exercises and a conclusion.
+Developers new to Java 8, streams and lambda expressions might need considerable more time, 
+depending on how much support the facilitator gives. [Peter Kofler](https://twitter.com/codecopkofler) 
+used the exercise in a Coding Dojo styled training and the group needed around six hours 
+to complete all exercises. Participants were new to Java 8 and I let them explore the 
+solutions on their own.
+
+### Notes on the Exercises
 
 Work through the exercises in `exercises` (`src/test/.../rts/exercises/Ex*.java`). 
 The `solutions` source tree (`src/test/.../rts/solutions/Ex*.java`) gives our suggestions.
@@ -58,6 +67,14 @@ JUnit test method(s) marked `@Test` as usual. A nasty side effect is that you ca
 an individual test in IntelliJ, but that seems to be true for `@Theory`'s as well.
 
 The final exercise is to refactor the `ExampleRunner` itself - our solution of that is also given.
+
+### Feedback from Participants
+
+* This was a great exercise.
+* It was good to see the variations of the usage of lambda expressions.
+* It helped to get an overview of what is available in Java 8 regarding streams and lambda expressions.
+* We got a first understanding of streams, but we need more practice.
+* Streams and lambda expressions are complicated (when you are new to it).
 
 ### License
 
