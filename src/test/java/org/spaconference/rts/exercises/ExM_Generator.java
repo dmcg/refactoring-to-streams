@@ -1,6 +1,5 @@
 package org.spaconference.rts.exercises;
 
-import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.spaconference.rts.runner.ExampleRunner;
@@ -42,8 +41,18 @@ public class ExM_Generator {
     }
 
     public static IntSupplier fibonacciSupplier(int initial1, int initial2) {
-        Assume.assumeFalse("need to implement this IntSupplier", true);
-        return null;
+        return new IntSupplier() {
+            int i1 = initial1;
+            int i2 = initial2;
+
+            @Override
+            public int getAsInt() {
+                int t = i1;
+                i1 = i2;
+                i2 = t + i2;
+                return t;
+            }
+        };
     }
 
     @Test

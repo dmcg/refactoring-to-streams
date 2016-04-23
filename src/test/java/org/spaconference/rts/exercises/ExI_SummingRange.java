@@ -1,16 +1,18 @@
 package org.spaconference.rts.exercises;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.spaconference.rts.runner.ExampleRunner;
 
 import java.util.function.LongUnaryOperator;
+import java.util.stream.LongStream;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.spaconference.rts.runner.ExampleRunner.Way;
 
-
+@Ignore
 @RunWith(ExampleRunner.class)
 public class ExI_SummingRange {
 
@@ -21,6 +23,21 @@ public class ExI_SummingRange {
             result += i;
         }
         return result;
+    }
+
+    @Way
+    public static long excitingNewWay(long limit) {
+        return LongStream.range(0, limit).sum();
+    }
+    @Way
+    public static long parallelSum(long limit) {
+        return LongStream.range(0, limit).parallel().sum();
+    }
+    //@Way
+    public static long forEach(long limit) {
+        final long[] result = {0};
+        LongStream.range(0, limit).forEach(l -> result[0] += l);
+        return result[0];
     }
 
     @Test

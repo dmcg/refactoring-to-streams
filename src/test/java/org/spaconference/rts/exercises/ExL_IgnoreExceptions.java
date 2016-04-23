@@ -9,6 +9,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -28,6 +30,27 @@ public class ExL_IgnoreExceptions {
             }
         }
         return uris;
+    }
+    @Way
+    public static List<URL> newWay(List<String> strings) {
+        return strings.stream().map(string-> {
+            try {
+                return new URL(string);
+            } catch (MalformedURLException ignored) {
+                return null;
+            }
+        }).filter(u -> u != null).collect(Collectors.toList());
+    }
+
+    @Way
+    public static List<URL> newNewWay(List<String> strings) {
+        return strings.stream().flatMap(string-> {
+            try {
+                return Stream.of(new URL(string));
+            } catch (MalformedURLException ignored) {
+                return Stream.empty();
+            }
+        }).collect(Collectors.toList());
     }
 
     @Test

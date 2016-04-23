@@ -26,23 +26,25 @@ public class ExA_Lambdas {
     }
 
     @Way
-    public static Function<String, Integer> lambda() {
-        return new Function<String, Integer>() {
-            @Override
-            public Integer apply(String s) {
-                return Integer.parseInt(s);
-            }
+    public static Function<String, Integer> long_lambda() {
+        return s -> {
+            return Integer.parseInt(s);
         };
     }
 
     @Way
-    public static Function<String, Integer> methodReference() {
-        return new Function<String, Integer>() {
-            @Override
-            public Integer apply(String s) {
-                return Integer.parseInt(s);
-            }
-        };
+    public static Function<String, Integer> short_lambda() {
+        return s -> Integer.parseInt(s);
+    }
+
+    @Way
+    public static Function<String, Integer> method_lambda() {
+        return Integer::parseInt;
+    }
+
+    @Way
+    public static Function<String, Integer> ctor_lambda() {
+        return Integer::new;
     }
 
     @Test

@@ -5,15 +5,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.spaconference.rts.runner.ExampleRunner;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.SortedMap;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.function.Function;
 
 import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.groupingBy;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.spaconference.rts.runner.ExampleRunner.Way;
@@ -60,6 +56,28 @@ public class ExF_Grouping {
         }
 
         return categories;
+    }
+
+    @Way
+    public static Map<String, List<Product>> usingForEach(List<Product> products) {
+        SortedMap<String, List<Product>> categories = new TreeMap<>();
+
+        products.stream().forEach(p -> {
+            if (categories.containsKey(p.category)) {
+                categories.get(p.category).add(p);
+            } else {
+                List<Product> categoryProducts = new ArrayList<>();
+                categoryProducts.add(p);
+                categories.put(p.category, categoryProducts);
+            }
+        });
+
+        return categories;
+    }
+
+    @Way
+    public static Map<String, List<Product>> newWay(List<Product> products) {
+        return products.stream().collect(groupingBy(p -> p.category));
     }
 
     @Test

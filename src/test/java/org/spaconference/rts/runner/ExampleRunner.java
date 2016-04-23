@@ -1,5 +1,6 @@
 package org.spaconference.rts.runner;
 
+import com.google.common.collect.Maps;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.InitializationError;
@@ -9,10 +10,11 @@ import java.lang.invoke.MethodHandleProxies;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
+
+import static java.util.stream.Collectors.toList;
 
 
 public class ExampleRunner extends BlockJUnit4ClassRunner {
@@ -37,26 +39,24 @@ public class ExampleRunner extends BlockJUnit4ClassRunner {
         if (testMethods.isEmpty())
             return testMethods;
 
-        Map<Method, Object[]> testParameters = annotatedMethodsAsFunctions(getTestClass().getJavaClass(), testMethods.get(0).getMethod().getParameters()[0].getType(), Way.class);
-
-        List<FrameworkMethod> result = new ArrayList<>();
-        for (FrameworkMethod testMethod : testMethods) {
-            for (Entry<Method, Object[]> methodEntry : testParameters.entrySet()) {
-                result.add(new TestMethodWithParams(testMethod, methodEntry.getValue(), methodEntry.getKey().getName()));
-            }
-        }
-        return result;
-    }
-
-    private Map<Method, Object[]> annotatedMethodsAsFunctions(Class<?> donorClass, Class<?> interfaceClass, Class<? extends Annotation> annotationClass) {
         MethodHandles.Lookup lookup = MethodHandles.lookup();
 
-        Map<Method, Object[]> result = new HashMap<>();
-        for (Method method : donorClass.getDeclaredMethods()) {
-            if (method.getDeclaredAnnotation(annotationClass) != null) {
-                result.put(method, new Object[]{functionFor(method, interfaceClass, lookup)});
-            }
-        }
+        List<Map.Entry<Method, Object[]>> testParameters = Arrays.stream(getTestClass().getJavaClass().getDeclaredMethods())
+                .filter(method -> method.getDeclaredAnnotation(Way.class) != null)
+                .map(method ->
+                        Maps.immutableEntry(
+                                method,
+                                new Object[]{functionFor(
+                                        method,
+                                        testMethods.get(0).getMethod().getParameters()[0].getType(), lookup)})).collect(toList());
+
+
+        List<FrameworkMethod> result = new ArrayList<>();
+        testMethods.stream(). forEach( testMethod ->  {
+            testParameters.forEach( methodEntry -> {
+                result.add(new TestMethodWithParams(testMethod, methodEntry.getValue(), methodEntry.getKey().getName()));
+            });
+        });
         return result;
     }
 

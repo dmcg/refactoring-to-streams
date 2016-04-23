@@ -27,6 +27,11 @@ public class ExG_Finding {
         return null;
     }
 
+    @Way
+    public static String newWay(List<String> strings, Predicate<? super String> criteria) {
+        return strings.stream().filter(criteria).findFirst().orElse(null);
+    }
+
     @Test
     public void finds_item_when_first_in_list(BiFunction<List<String>, Predicate<? super String>, String> f) {
         assertThat(f.apply(asList("one", "two", "three"), s -> s.startsWith("o")), equalTo("one"));

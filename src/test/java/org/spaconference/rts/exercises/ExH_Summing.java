@@ -4,7 +4,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.spaconference.rts.runner.ExampleRunner;
 
+import java.util.Arrays;
 import java.util.function.ToIntFunction;
+import java.util.stream.IntStream;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -21,6 +23,14 @@ public class ExH_Summing {
             result += i;
         }
         return result;
+    }
+    @Way
+    public static int newWay(int[] ints) {
+        return IntStream.of(ints).sum();
+    }
+    @Way
+    public static int newWay2(int[] ints) {
+        return Arrays.stream(ints).sum();
     }
 
     @Test

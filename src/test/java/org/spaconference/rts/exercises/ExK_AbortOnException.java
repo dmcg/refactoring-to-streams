@@ -26,6 +26,20 @@ public class ExK_AbortOnException {
         }
         return uris;
     }
+    @Way
+    public static List<URL> newWay(List<String> strings) throws MalformedURLException {
+        List<URL> uris = new ArrayList<>();
+        MalformedURLException es[]=new MalformedURLException[1];
+        strings.forEach(x -> {
+            try {
+                uris.add(new URL(x));
+            } catch (MalformedURLException e) {
+                es[0]=e;
+            }
+        });
+        if(es[0]!=null) { throw es[0]; }
+        return uris;
+    }
 
     @Test
     public void good_urls_pass(UrlParser f) throws MalformedURLException {
