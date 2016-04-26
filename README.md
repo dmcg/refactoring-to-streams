@@ -6,6 +6,8 @@ Exercises and solutions by [Duncan McGregor](https://twitter.com/duncanmcg)
 and [Nat Pryce](https://twitter.com/natpryce) used in their 
 [SPA2015 workshop on programming with streams](http://www.spaconference.org/spa2015/sessions/session647.html).
 
+Presented again at [ACCU 2016](http://accu.org/index.php/conferences/accu_conference_2016/accu2016_sessions#Refactoring_to_Streams)
+
 ## Description 
 
 [Streams](https://docs.oracle.com/javase/tutorial/collections/streams/) and 
