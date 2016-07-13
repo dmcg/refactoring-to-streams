@@ -1,4 +1,4 @@
-package to.refactoring.streams;
+package to.refactoring.streams.solutions;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +13,7 @@ import static to.refactoring.runner.ExampleRunner.Way;
 
 
 @RunWith(ExampleRunner.class)
-public class ExA_Lambdas {
+public class ExX_Lambdas {
 
     @Way
     public static Function<String, Integer> anonymousClass() {
@@ -27,22 +27,12 @@ public class ExA_Lambdas {
 
     @Way
     public static Function<String, Integer> lambda() {
-        return new Function<String, Integer>() {
-            @Override
-            public Integer apply(String s) {
-                return Integer.parseInt(s);
-            }
-        };
+        return s -> Integer.parseInt(s);
     }
 
     @Way
     public static Function<String, Integer> methodReference() {
-        return new Function<String, Integer>() {
-            @Override
-            public Integer apply(String s) {
-                return Integer.parseInt(s);
-            }
-        };
+        return Integer::parseInt;
     }
 
     @Test
